@@ -1,0 +1,10 @@
+swagger:
+  title: ^project.name^
+  description: ^project.description^
+  version: ^project.version^
+  termsOfServiceUrl: \#
+  contactName: Your name
+  contactUrl: \#
+  contactEmail: email
+  license: License of API
+  licenseUrl: \#

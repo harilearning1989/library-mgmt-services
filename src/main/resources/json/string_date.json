@@ -1,0 +1,78 @@
+[
+  {
+    "inputString": "2001.07.04 AD at 12:08:56 PDT",
+    "pattern": "yyyy.MM.dd G 'at' HH:mm:ss z"
+  },
+  {
+    "inputString": "Wed, Jul 4, '01",
+    "pattern": "EEE, MMM d, ''yy"
+  },
+  {
+    "inputString": "Wed, Jul 4, '01",
+    "pattern": "EEE, MMM d, ''yy"
+  },
+  {
+    "inputString": "12:08 PM",
+    "pattern": "h:mm a"
+  },
+  {
+    "inputString": "12 o'clock PM, Pacific Daylight Time",
+    "pattern": "hh 'o''clock' a, zzzz"
+  },
+  {
+    "inputString": "0:08 PM, PDT",
+    "pattern": "K:mm a, z"
+  },
+  {
+    "inputString": "02001.July.04 AD 12:08 PM",
+    "pattern": "yyyyy.MMMM.dd GGG hh:mm aaa"
+  },
+  {
+    "inputString": "Wed, 4 Jul 2001 12:08:56 -0700",
+    "pattern": "EEE, d MMM yyyy HH:mm:ss Z"
+  },
+  {
+    "inputString": "010704120856-0700",
+    "pattern": "yyMMddHHmmssZ"
+  },
+  {
+    "inputString": "2001-07-04T12:08:56.235-0700",
+    "pattern": "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+  },
+  {
+    "inputString": "2001-07-04T12:08:56.235-07:00",
+    "pattern": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+  },
+  {
+    "inputString": "2001-W27-3",
+    "pattern": "YYYY-'W'ww-u"
+  },
+  {
+    "inputString": "31/12/1998",
+    "pattern": "dd/MM/yyyy"
+  },
+  {
+    "inputString": "31-Dec-1998",
+    "pattern": "dd-MMM-yyyy"
+  },
+  {
+    "inputString": "12 31, 1998",
+    "pattern": "MM dd, yyyy"
+  },
+  {
+    "inputString": "Thu, Dec 31 1998",
+    "pattern": "E, MMM dd yyyy"
+  },
+  {
+    "inputString": "Thu, Dec 31 1998 23:37:50",
+    "pattern": "E, MMM dd yyyy HH:mm:ss"
+  },
+  {
+    "inputString": "31-Dec-1998 23:37:50",
+    "pattern": "dd-MMM-yyyy HH:mm:ss"
+  },
+  {
+    "inputString": "Sat Mar 25 22:52:53 IST 2023",
+    "pattern": "EEE MMM dd HH:mm:ss z uuuu"
+  }
+]
