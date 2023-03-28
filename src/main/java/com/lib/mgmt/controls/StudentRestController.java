@@ -85,6 +85,25 @@ public class StudentRestController {
         }
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Student> updateEmployee(
+            @PathVariable("id") int empId, @RequestBody(required = false) Student employee) {
+        Optional<Student> empData = studentService.findByStudentId(empId);
+        if (empData.isPresent()) {
+            Student _employee = empData.get();
+            return new ResponseEntity<>(studentService.createStudent(_employee), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Student> updateStudentById(
+            @PathVariable("id") int stdId, @RequestBody(required = false) Student student) {
+        Student _student = studentService.updateStudentById(student,stdId);
+        return new ResponseEntity<>(_student, HttpStatus.OK);
+    }
+
     @DeleteMapping("/delete/{studentId}")
     public ResponseEntity<HttpStatus> deleteStudent(@PathVariable("studentId") int studentId) {
         try {

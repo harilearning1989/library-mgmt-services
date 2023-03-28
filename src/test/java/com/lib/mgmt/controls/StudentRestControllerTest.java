@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -150,7 +151,45 @@ public class StudentRestControllerTest {
     }
 
     @Test
-    public void updateStudent() {
+    public void createEmployeeNullTest(){
+        Student request = new Student();
+        request.setId(12);
+        request.setStudentId(76127);
+        request.setStudentName("Hari");
+        when(studentRestController.createStudent(request)).thenThrow(new RuntimeException());
+        ResponseEntity<Student> responseEntity = studentRestController.createStudent(request);
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(500);
+    }
+    /*@Test
+    public void updateStudentTest(){
+        Student request = new Student();
+        request.setId(12);
+        request.setStudentId(76127);
+        request.setStudentName("Hari");
+
+        Student response = new Student();
+        request.setId(12);
+        request.setStudentId(76127);
+        request.setStudentName("Hari");
+
+        when(studentService.findByStudentId(76127)).thenReturn(Optional.of(response));
+        when(studentService.createStudent(request)).thenReturn(response);
+
+        ResponseEntity<Student> responseEntity = studentRestController.updateStudent(76127,request);
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
+    }*/
+
+    @Test
+    public void updateEmployeeEmptyTest(){
+        Student request = new Student();
+        request.setId(12);
+        request.setStudentId(76127);
+        request.setStudentName("Hari");
+
+        when(studentService.findByStudentId(76127)).thenReturn(Optional.empty());
+
+        ResponseEntity<Student> responseEntity = studentRestController.updateStudentById(76127,request);
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
     }
 
     @Test
@@ -192,5 +231,142 @@ public class StudentRestControllerTest {
 
         return studentList;
     }
+
+/*
+
+    @Test
+    public void updateEmpTest(){
+        Employee empRequest = new Employee();
+        empRequest.setEmpName("Chandra");
+        empRequest.setManager_id(76127);
+
+        Employee empResponse = new Employee();
+        empResponse.setEmpId(11);
+        empResponse.setEmpName("Chandra");
+        empResponse.setManager_id(76127);
+
+        when(employeeService.updateEmp(76127,empRequest)).thenReturn(empResponse);
+
+        ResponseEntity<Employee> responseEntity = employeeController.updateEmp(76127,empRequest);
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
+    }
+
+    @Test
+    public void deleteEmployeeTest(){
+        doNothing().when(employeeService).deleteById(76127);
+        //verify(employeeService,times(1)).deleteById(76127);
+        ResponseEntity<HttpStatus> responseEntity = employeeController.deleteEmployee(76127);
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(204);
+    }
+
+    @Test
+    public void deleteEmployeeExceptionTest(){
+        doThrow(new RuntimeException()).when(employeeService).deleteById(76127);
+        ResponseEntity<HttpStatus> responseEntity = employeeController.deleteEmployee(76127);
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(500);
+    }
+
+    @Test
+    public void deleteAllEmployeesTest(){
+        doNothing().when(employeeService).deleteAll();
+        //verify(employeeService,times(1)).deleteById(76127);
+        ResponseEntity<HttpStatus> responseEntity = employeeController.deleteAllEmployees();
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(204);
+    }
+
+    @Test
+    public void deleteAllEmployeesExceptionTest(){
+        doThrow(new RuntimeException()).when(employeeService).deleteAll();
+        ResponseEntity<HttpStatus> responseEntity = employeeController.deleteAllEmployees();
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(500);
+    }
+
+    @Test
+    public void updateFindAllEmptyTest(){
+        when(employeeService.updateFindAll()).thenReturn(new ArrayList<>());
+
+        ResponseEntity<List<EmployeeDTO>> responseEntity = employeeController.updateFindAll();
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(204);
+    }
+
+    @Test
+    public void updateFindAllTest(){
+        List<EmployeeDTO> empDto = getManagerDataDto();
+        when(employeeService.updateFindAll()).thenReturn(empDto);
+
+        ResponseEntity<List<EmployeeDTO>> responseEntity = employeeController.updateFindAll();
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
+    }
+
+    @Test
+    public void updateFindAllExceptionTest(){
+        when(employeeService.updateFindAll()).thenThrow(new RuntimeException());
+
+        ResponseEntity<List<EmployeeDTO>> responseEntity = employeeController.updateFindAll();
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(500);
+    }
+
+    @Test
+    public void readJsonTest(){
+        List<EmployeeDTO> empDto = getManagerDataDto();
+        when(employeeService.readJson()).thenReturn(empDto);
+
+        ResponseEntity<List<EmployeeDTO>> responseEntity = employeeController.readJson();
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
+    }
+
+    @Test
+    public void readJsonEmptyTest(){
+        when(employeeService.readJson()).thenReturn(new ArrayList<>());
+
+        ResponseEntity<List<EmployeeDTO>> responseEntity = employeeController.readJson();
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(204);
+    }
+
+    @Test
+    public void readJsonExceptionTest(){
+        when(employeeService.readJson()).thenThrow(new RuntimeException());
+
+        ResponseEntity<List<EmployeeDTO>> responseEntity = employeeController.readJson();
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(500);
+    }
+
+
+    private List<EmployeeDTO> getManagerDataDto() {
+        List<EmployeeDTO> empList = new ArrayList<>();
+
+        EmployeeDTO emp = new EmployeeDTO();
+        emp.setId(12);
+        emp.setEmpName("Chandra");
+        emp.setManager_id(76127);
+        empList.add(emp);
+
+        emp = new EmployeeDTO();
+        emp.setId(13);
+        emp.setEmpName("Pramod");
+        emp.setManager_id(76127);
+        empList.add(emp);
+
+        emp = new EmployeeDTO();
+        emp.setId(14);
+        emp.setEmpName("Bablu");
+        emp.setManager_id(76128);
+        empList.add(emp);
+
+        emp = new EmployeeDTO();
+        emp.setId(15);
+        emp.setEmpName("Josh");
+        emp.setManager_id(76129);
+        empList.add(emp);
+
+        emp = new EmployeeDTO();
+        emp.setId(15);
+        emp.setEmpId(76127);
+        emp.setEmpName("Josh");
+        emp.setManager_id(76129);
+        empList.add(emp);
+
+        return empList;
+    }*/
 
 }

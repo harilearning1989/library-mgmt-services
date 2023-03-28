@@ -18,6 +18,8 @@ public interface StudentService {
 
     ResponseEntity<Student> updateStudent(Student student, int studentId);
 
+    Student updateStudentById(Student student, int studentId);
+
     void deleteByStudentId(int id);
 
     void deleteAll();

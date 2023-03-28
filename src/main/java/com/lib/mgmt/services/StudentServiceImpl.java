@@ -72,6 +72,15 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
+    public Student updateStudentById(Student student, int studentId) {
+        Optional<Student> tutorialData = studentRepository.findByStudentId(studentId);
+        if (tutorialData.isPresent()) {
+            return tutorialData.get();
+        }
+        return null;
+    }
+
+    @Override
     public void deleteByStudentId(int studentId) {
         studentRepository.deleteByStudentId(studentId);
     }
