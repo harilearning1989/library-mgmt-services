@@ -1,16 +1,19 @@
 package com.lib.mgmt.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "Tutorial")
 public class Tutorial {
 
+    @Id
+    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String title;
     private String description;
     private boolean isPublished;
+    public Tutorial(){}
     public Tutorial(long id, String title, String description, boolean isPublished) {
         this.id = id;
         this.title = title;
