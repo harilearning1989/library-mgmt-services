@@ -22,7 +22,7 @@ public interface BookService {
     List<Book> findAvailableBooks();
     List<Book> findBookSearchCriteria(String isbn,String subject,String bookName);
 
-    ResponseEntity<Book> updateBook(Book book);
+    Book updateBook(Book book);
 
     void deleteByBookId(int bookId);
 

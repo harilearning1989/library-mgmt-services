@@ -253,15 +253,13 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public ResponseEntity<Book> updateBook(Book book) {
+    public Book updateBook(Book book) {
         Optional<Book> bookData = bookRepository.findById(book.getId());
-
         if (bookData.isPresent()) {
             Book _book = bookData.get();
-            return new ResponseEntity<>(bookRepository.save(_book), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return bookRepository.save(_book);
         }
+        return null;
     }
 
     @Override
