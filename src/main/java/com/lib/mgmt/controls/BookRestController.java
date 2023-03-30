@@ -2,7 +2,6 @@ package com.lib.mgmt.controls;
 
 import com.lib.mgmt.dtos.BooksDTO;
 import com.lib.mgmt.models.Book;
-import com.lib.mgmt.models.Employee;
 import com.lib.mgmt.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
