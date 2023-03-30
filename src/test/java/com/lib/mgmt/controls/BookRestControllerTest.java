@@ -139,7 +139,6 @@ public class BookRestControllerTest {
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(500);
     }
 
-
     @Test
     public void findAvailableBooksTest(){
         MockHttpServletRequest request = new MockHttpServletRequest();

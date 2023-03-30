@@ -22,28 +22,29 @@ import java.util.List;
 @Service
 public class BookIssueServiceImpl implements BookIssueService{
 
-    @Autowired
     private BookIssueRepository bookIssueRepository;
-    @Autowired
+
     private StudentRepository studentRepository;
 
-    @Autowired
     private BookRepository bookRepository;
 
+    @Autowired
     public void setBookIssueRepository(BookIssueRepository bookIssueRepository) {
         this.bookIssueRepository = bookIssueRepository;
     }
 
+    @Autowired
     public void setStudentRepository(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
 
+    @Autowired
     public void setBookRepository(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
     @Override
-    public List<IssueBook> allIssuedBooks() {
+    public List<IssueBook> findAllIssuedBooks() {
         return bookIssueRepository.findAll();
     }
 
