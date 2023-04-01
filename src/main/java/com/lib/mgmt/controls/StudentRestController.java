@@ -1,6 +1,7 @@
 package com.lib.mgmt.controls;
 
 import com.lib.mgmt.dtos.StudentDTO;
+import com.lib.mgmt.models.Book;
 import com.lib.mgmt.models.Student;
 import com.lib.mgmt.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +32,20 @@ public class StudentRestController {
     }
     @GetMapping("/all")
     public ResponseEntity<List<Student>> findAllStudents() {
-        List<Student> studentList = studentService.findAll();
-        studentList = studentList
-                .stream()
-                .limit(1000)
-                .collect(Collectors.toList());
-        return new ResponseEntity<>(studentList, HttpStatus.OK);
+        try {
+            List<Student> studentList = studentService.findAll();
+            if (studentList.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }else{
+                studentList = studentList
+                        .stream()
+                        .limit(1000)
+                        .collect(Collectors.toList());
+                return new ResponseEntity<>(studentList, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/list")
@@ -76,7 +85,8 @@ public class StudentRestController {
     }
 
     @PutMapping("/update/{studentId}")
-    public ResponseEntity<Student> updateStudent(@PathVariable("studentId") int studentId, @RequestBody Student student) {
+    public ResponseEntity<Student> updateStudent(
+            @PathVariable("studentId") int studentId, @RequestBody Student student) {
         try {
             ResponseEntity<Student> _student = studentService.updateStudent(student,studentId);
             return _student;

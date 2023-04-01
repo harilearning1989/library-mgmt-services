@@ -23,14 +23,23 @@ public class BookReturnController {
 
     @GetMapping("/all")
     public ResponseEntity<List<ReturnBook>> allReturnedBooks() {
-        List<ReturnBook> bookList = bookReturnService.allReturnedBooks();
-        return new ResponseEntity<>(bookList, HttpStatus.OK);
+        try {
+            List<ReturnBook> bookList = bookReturnService.allReturnedBooks();
+            if (bookList.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(bookList, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping("/returnBook")
     public ResponseEntity<ReturnBook> returnOldBook(
             @RequestBody ReturnBook returnBook) {
         ReturnBook _returnBook = bookReturnService.returnOldBook(returnBook);
+        if(_returnBook == null)
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         return new ResponseEntity<>(_returnBook, HttpStatus.CREATED);
     }
 }

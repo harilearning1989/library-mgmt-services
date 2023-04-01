@@ -58,6 +58,41 @@ public class StudentRestControllerTest {
     }
 
     @Test
+    public void findAllStudentsTest(){
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+        List<Student> studentList = getStudentData();
+        when(studentService.findAll()).thenReturn(studentList);
+
+        ResponseEntity<List<Student>> responseEntity = studentRestController.findAllStudents();
+
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
+        assertThat(responseEntity.getBody().size()).isEqualTo(studentList.size());
+    }
+    @Test
+    public void findAllStudentsEmptyTest(){
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+
+        when(studentService.findAll()).thenReturn(new ArrayList<>());
+
+        ResponseEntity<List<Student>> responseEntity = studentRestController.findAllStudents();
+
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(204);
+    }
+
+    @Test
+    public void findAllStudentsExceptionTest(){
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+        when(studentService.findAll()).thenReturn(null);
+
+        ResponseEntity<List<Student>> responseEntity = studentRestController.findAllStudents();
+
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(500);
+    }
+
+    @Test
     public void findAllEmptyTest(){
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));

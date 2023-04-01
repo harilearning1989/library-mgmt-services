@@ -2,7 +2,6 @@ package com.lib.mgmt.controls;
 
 import com.lib.mgmt.dtos.IssueBookDto;
 import com.lib.mgmt.dtos.IssuedBookStudentDto;
-import com.lib.mgmt.models.Book;
 import com.lib.mgmt.models.IssueBook;
 import com.lib.mgmt.services.BookIssueServiceImpl;
 import org.junit.Test;
@@ -32,7 +31,6 @@ import static org.mockito.Mockito.*;
         "javax.xml.", "org.xml.", "org.w3c.dom.","jdk.internal.reflect.*",
         "com.sun.org.apache.xalan.", "javax.activation.*",
         "javax.net.ssl.*","jdk.internal.reflect.*"})
-
 public class BookIssueControllerTest {
 
     @InjectMocks
@@ -129,8 +127,6 @@ public class BookIssueControllerTest {
         ResponseEntity<List<IssuedBookStudentDto>> responseEntity = bookIssueController.findIssuedBooksForStudent(76127);
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(500);
     }
-
-
 
     @Test
     public void sameBookIssuedForStudentsTest() {
