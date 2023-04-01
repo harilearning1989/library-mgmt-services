@@ -15,9 +15,9 @@ public interface StudentService {
 
     Student createStudent(Student student);
 
-    Student updateStudent(Student student, int studentId);
+    Student updateStudent(int studentId,Student student);
 
-    Student updateStudentById(Student student, int studentId);
+    Student updateStudentById(int studentId,Student student);
 
     void deleteByStudentId(int id);
 

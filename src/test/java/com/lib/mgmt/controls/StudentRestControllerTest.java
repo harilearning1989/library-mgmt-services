@@ -181,7 +181,7 @@ public class StudentRestControllerTest {
         response.setMobile(9494968081L);
         response.setCategory("MCA");
 
-        when(studentService.updateStudent(request,76127)).thenReturn(response);
+        when(studentService.updateStudent(76127,request)).thenReturn(response);
         ResponseEntity<Student> responseEntity = studentRestController.updateStudent(76127,request);
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(201);
     }
@@ -197,7 +197,7 @@ public class StudentRestControllerTest {
         request.setMobile(9494968081L);
         request.setCategory("MCA");
 
-        when(studentService.updateStudent(request,76127)).thenReturn(null);
+        when(studentService.updateStudent(76127,request)).thenReturn(null);
         ResponseEntity<Student> responseEntity = studentRestController.updateStudent(76127,request);
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(500);
     }
@@ -233,7 +233,7 @@ public class StudentRestControllerTest {
         request.setId(12);
         request.setStudentId(76127);
         request.setStudentName("Hari");
-        when(studentRestController.createStudent(request)).thenThrow(new RuntimeException());
+        when(studentRestController.createStudent(request)).thenReturn(null);
         ResponseEntity<Student> responseEntity = studentRestController.createStudent(request);
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(500);
     }

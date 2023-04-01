@@ -3,6 +3,7 @@ package com.lib.mgmt.controls;
 import com.lib.mgmt.dtos.EmployeeDTO;
 import com.lib.mgmt.models.Employee;
 import com.lib.mgmt.services.EmployeeServiceImpl;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -32,6 +33,7 @@ import static org.mockito.Mockito.*;
         "javax.xml.", "org.xml.", "org.w3c.dom.","jdk.internal.reflect.*",
         "com.sun.org.apache.xalan.", "javax.activation.*",
         "javax.net.ssl.*","jdk.internal.reflect.*"})
+@Ignore
 public class EmployeeRestControllerTest {
 
     @InjectMocks

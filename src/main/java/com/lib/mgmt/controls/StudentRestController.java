@@ -76,18 +76,16 @@ public class StudentRestController {
     @PostMapping("/create")
     public ResponseEntity<Student> createStudent(
             @RequestBody Student student) {
-        try {
-            Student _student = studentService.createStudent(student);
-            return new ResponseEntity<>(_student, HttpStatus.CREATED);
-        } catch (Exception e) {
+        Student _student = studentService.createStudent(student);
+        if(_student == null)
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return new ResponseEntity<>(_student, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update/{studentId}")
+    @PutMapping("/updateStudent/{studentId}")
     public ResponseEntity<Student> updateStudent(
             @PathVariable("studentId") int studentId, @RequestBody Student student) {
-        Student _student = studentService.updateStudent(student,studentId);
+        Student _student = studentService.updateStudent(studentId,student);
         if(_student == null)
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         return new ResponseEntity<>(_student, HttpStatus.CREATED);
@@ -108,8 +106,10 @@ public class StudentRestController {
     @PutMapping("/update/{id}")
     public ResponseEntity<Student> updateStudentById(
             @PathVariable("id") int stdId, @RequestBody(required = false) Student student) {
-        Student _student = studentService.updateStudentById(student,stdId);
-        return new ResponseEntity<>(_student, HttpStatus.OK);
+        Student _student = studentService.updateStudentById(stdId,student);
+        if(_student == null)
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(_student, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete/{studentId}")

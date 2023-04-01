@@ -58,7 +58,7 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public Student updateStudent(Student student, int studentId) {
+    public Student updateStudent(int studentId,Student student) {
         Optional<Student> studentOpt = studentRepository.findByStudentId(studentId);
         if (studentOpt.isPresent()) {
             Student _student = studentOpt.get();
@@ -68,7 +68,7 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public Student updateStudentById(Student student, int studentId) {
+    public Student updateStudentById(int studentId,Student student) {
         Optional<Student> tutorialData = studentRepository.findByStudentId(studentId);
         if (tutorialData.isPresent()) {
             return tutorialData.get();
