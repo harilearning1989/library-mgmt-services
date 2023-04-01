@@ -1,5 +1,7 @@
 package com.lib.mgmt.controls;
 
+import com.lib.mgmt.dtos.StudentDTO;
+import com.lib.mgmt.models.Book;
 import com.lib.mgmt.models.Student;
 import com.lib.mgmt.services.StudentServiceImpl;
 import org.junit.Test;
@@ -159,6 +161,46 @@ public class StudentRestControllerTest {
 
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(204);
     }
+    @Test
+    public void updateStudentTest(){
+        Student request = new Student();
+        request.setId(12);
+        request.setStudentId(76127);
+        request.setStudentName("Hari");
+        request.setFatherName("Rama");
+        request.setGender("Male");
+        request.setMobile(9494968081L);
+        request.setCategory("MCA");
+
+        Student response = new Student();
+        response.setId(12);
+        response.setStudentId(76127);
+        response.setStudentName("Hari");
+        response.setFatherName("Rama");
+        response.setGender("Male");
+        response.setMobile(9494968081L);
+        response.setCategory("MCA");
+
+        when(studentService.updateStudent(request,76127)).thenReturn(response);
+        ResponseEntity<Student> responseEntity = studentRestController.updateStudent(76127,request);
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(201);
+    }
+
+    @Test
+    public void updateStudentExceptionTest(){
+        Student request = new Student();
+        request.setId(12);
+        request.setStudentId(76127);
+        request.setStudentName("Hari");
+        request.setFatherName("Rama");
+        request.setGender("Male");
+        request.setMobile(9494968081L);
+        request.setCategory("MCA");
+
+        when(studentService.updateStudent(request,76127)).thenReturn(null);
+        ResponseEntity<Student> responseEntity = studentRestController.updateStudent(76127,request);
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(500);
+    }
 
     @Test
     public void createStudent() {
@@ -228,15 +270,64 @@ public class StudentRestControllerTest {
     }
 
     @Test
-    public void deleteStudent() {
+    public void deleteStudentTest() {
+        doNothing().when(studentService).deleteByStudentId(10);
+        ResponseEntity<String> responseEntity = studentRestController.deleteStudent(10);
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
     }
 
     @Test
-    public void deleteAllStudents() {
+    public void deleteStudentExceptionTest() {
+        doThrow(new NullPointerException()).when(studentService).deleteByStudentId(10);
+        ResponseEntity<String> responseEntity = studentRestController.deleteStudent(10);
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(500);
     }
 
     @Test
-    public void readJson() {
+    public void deleteAllStudentTest() {
+        doNothing().when(studentService).deleteAll();
+        ResponseEntity<String> responseEntity = studentRestController.deleteAllStudents();
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
+    }
+
+    @Test
+    public void deleteAllStudentExceptionTest() {
+        doThrow(new NullPointerException()).when(studentService).deleteAll();
+        ResponseEntity<String> responseEntity = studentRestController.deleteAllStudents();
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(500);
+    }
+
+    @Test
+    public void readJsonTest(){
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+        List<StudentDTO> studentList = getStudentDtoData();
+        when(studentService.readJson()).thenReturn(studentList);
+
+        ResponseEntity<List<StudentDTO>> responseEntity = studentRestController.readJson();
+
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
+        assertThat(responseEntity.getBody().size()).isEqualTo(studentList.size());
+    }
+
+    @Test
+    public void readJsonEmptyTest(){
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+        when(studentService.readJson()).thenReturn(new ArrayList<>());
+        ResponseEntity<List<StudentDTO>> responseEntity = studentRestController.readJson();
+
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(204);
+    }
+
+    @Test
+    public void readJsonExceptionTest(){
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+        when(studentService.readJson()).thenReturn(null);
+        ResponseEntity<List<StudentDTO>> responseEntity = studentRestController.readJson();
+
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(500);
     }
 
     private List<Student> getStudentData() {
@@ -265,6 +356,16 @@ public class StudentRestControllerTest {
         studentList.add(student);
 
         return studentList;
+    }
+
+    private List<StudentDTO> getStudentDtoData() {
+        List<StudentDTO> dtos = new ArrayList<>();
+        StudentDTO dto = new StudentDTO();
+        dto.setEmpId(76127);
+
+        dtos.add(dto);
+
+        return dtos;
     }
 
 /*

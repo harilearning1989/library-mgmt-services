@@ -87,15 +87,13 @@ public class StudentRestController {
     @PutMapping("/update/{studentId}")
     public ResponseEntity<Student> updateStudent(
             @PathVariable("studentId") int studentId, @RequestBody Student student) {
-        try {
-            ResponseEntity<Student> _student = studentService.updateStudent(student,studentId);
-            return _student;
-        } catch (Exception e) {
+        Student _student = studentService.updateStudent(student,studentId);
+        if(_student == null)
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return new ResponseEntity<>(_student, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    /*@PutMapping("/{id}")
     public ResponseEntity<Student> updateEmployee(
             @PathVariable("id") int empId, @RequestBody(required = false) Student employee) {
         Optional<Student> empData = studentService.findByStudentId(empId);
@@ -105,7 +103,7 @@ public class StudentRestController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-    }
+    }*/
 
     @PutMapping("/update/{id}")
     public ResponseEntity<Student> updateStudentById(
@@ -115,20 +113,20 @@ public class StudentRestController {
     }
 
     @DeleteMapping("/delete/{studentId}")
-    public ResponseEntity<HttpStatus> deleteStudent(@PathVariable("studentId") int studentId) {
+    public ResponseEntity<String> deleteStudent(@PathVariable("studentId") int studentId) {
         try {
             studentService.deleteByStudentId(studentId);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<String>("Student deleted successfully!.", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @DeleteMapping("/deleteAll")
-    public ResponseEntity<HttpStatus> deleteAllStudents() {
+    public ResponseEntity<String> deleteAllStudents() {
         try {
             studentService.deleteAll();
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<String>("deleted all students successfully!.", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -137,12 +135,20 @@ public class StudentRestController {
 
     @GetMapping("/readJson")
     public ResponseEntity<List<StudentDTO>> readJson() {
-        List<StudentDTO> studentList = studentService.readJson();
-        studentList = studentList
-                .stream()
-                .limit(1000)
-                .collect(Collectors.toList());
-        return new ResponseEntity<>(studentList, HttpStatus.OK);
+        try {
+            List<StudentDTO> studentList = studentService.readJson();
+            if (studentList.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }else{
+                studentList = studentList
+                        .stream()
+                        .limit(1000)
+                        .collect(Collectors.toList());
+                return new ResponseEntity<>(studentList, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

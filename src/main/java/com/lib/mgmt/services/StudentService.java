@@ -2,7 +2,6 @@ package com.lib.mgmt.services;
 
 import com.lib.mgmt.dtos.StudentDTO;
 import com.lib.mgmt.models.Student;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +15,7 @@ public interface StudentService {
 
     Student createStudent(Student student);
 
-    ResponseEntity<Student> updateStudent(Student student, int studentId);
+    Student updateStudent(Student student, int studentId);
 
     Student updateStudentById(Student student, int studentId);
 

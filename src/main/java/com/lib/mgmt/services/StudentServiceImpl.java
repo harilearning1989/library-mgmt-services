@@ -7,8 +7,6 @@ import com.lib.mgmt.dtos.StudentDTO;
 import com.lib.mgmt.models.Student;
 import com.lib.mgmt.repos.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -60,15 +58,13 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public ResponseEntity<Student> updateStudent(Student student, int studentId) {
-        Optional<Student> tutorialData = studentRepository.findByStudentId(studentId);
-
-        if (tutorialData.isPresent()) {
-            Student _tutorial = tutorialData.get();
-            return new ResponseEntity<>(studentRepository.save(_tutorial), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public Student updateStudent(Student student, int studentId) {
+        Optional<Student> studentOpt = studentRepository.findByStudentId(studentId);
+        if (studentOpt.isPresent()) {
+            Student _student = studentOpt.get();
+            return studentRepository.save(_student);
         }
+        return null;
     }
 
     @Override
