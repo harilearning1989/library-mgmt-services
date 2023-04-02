@@ -3,6 +3,7 @@ package com.lib.mgmt.controls;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lib.mgmt.data.ModelData;
 import com.lib.mgmt.models.Book;
 import com.lib.mgmt.models.ReturnBook;
 import com.lib.mgmt.services.BookReturnServiceImpl;
@@ -43,7 +44,7 @@ public class BookReturnControllerMvcTest {
 
     @Test
     public void allReturnedBooksTest()throws Exception {
-        List<ReturnBook> returnBookData = getReturnBookData();
+        List<ReturnBook> returnBookData = ModelData.getReturnBookData();
         when(bookReturnService.allReturnedBooks()).thenReturn(returnBookData);
         mockMvc.perform(get("/return/all"))
                 .andExpect(status().isOk())
@@ -105,14 +106,4 @@ public class BookReturnControllerMvcTest {
                 andExpect(status().is5xxServerError());
     }
 
-    private List<ReturnBook> getReturnBookData() {
-        List<ReturnBook> returnBookList = new ArrayList<>();
-        ReturnBook returnBook = new ReturnBook();
-        returnBook.setBookId(123);
-        returnBook.setStudentId(76127);
-
-        returnBookList.add(returnBook);
-
-        return returnBookList;
-    }
 }

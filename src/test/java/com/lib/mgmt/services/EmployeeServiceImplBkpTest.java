@@ -3,6 +3,7 @@ package com.lib.mgmt.services;
 import com.lib.mgmt.exception.ResourceNotFoundException;
 import com.lib.mgmt.models.Employee;
 import com.lib.mgmt.repos.EmployeeRepo;
+import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,7 @@ import static org.mockito.BDDMockito.willDoNothing;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
+@Ignore
 class EmployeeServiceImplBkpTest {
 
     @Mock

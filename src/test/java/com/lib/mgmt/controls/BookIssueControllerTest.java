@@ -1,5 +1,6 @@
 package com.lib.mgmt.controls;
 
+import com.lib.mgmt.data.ModelData;
 import com.lib.mgmt.dtos.IssueBookDto;
 import com.lib.mgmt.dtos.IssuedBookStudentDto;
 import com.lib.mgmt.models.IssueBook;
@@ -43,7 +44,7 @@ public class BookIssueControllerTest {
     public void findAllIssuedBooksTest() {
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-        List<IssueBook> issueBookList = getIssueBookList();
+        List<IssueBook> issueBookList = ModelData.getIssueBookList();
         when(bookIssueService.findAllIssuedBooks()).thenReturn(issueBookList);
         ResponseEntity<List<IssueBook>> responseEntity = bookIssueController.findAllIssuedBooks();
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
@@ -170,28 +171,5 @@ public class BookIssueControllerTest {
 
         bookList.add(dto);
         return bookList;
-    }
-
-    @Test
-    public void sameBookIssuedForStudents() {
-    }
-
-    private List<IssueBook> getIssueBookList() {
-        List<IssueBook> issueBookList = new ArrayList<>();
-        IssueBook book = new IssueBook();
-        book.setBookId(1234);
-        book.setId(12);
-        book.setStudentId(76127);
-
-        issueBookList.add(book);
-
-        book = new IssueBook();
-        book.setBookId(1234);
-        book.setId(12);
-        book.setStudentId(76127);
-
-        issueBookList.add(book);
-
-        return issueBookList;
     }
 }
