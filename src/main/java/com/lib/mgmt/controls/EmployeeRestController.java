@@ -2,7 +2,7 @@ package com.lib.mgmt.controls;
 
 
 import com.lib.mgmt.dtos.EmployeeDTO;
-import com.lib.mgmt.models.Employee;
+import com.lib.mgmt.models.library.Employee;
 import com.lib.mgmt.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

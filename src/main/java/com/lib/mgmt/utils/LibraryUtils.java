@@ -1,6 +1,6 @@
 package com.lib.mgmt.utils;
 
-import com.lib.mgmt.models.Book;
+import com.lib.mgmt.models.library.Book;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

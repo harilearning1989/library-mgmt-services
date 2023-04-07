@@ -3,7 +3,7 @@ package com.lib.mgmt.controls;
 import com.lib.mgmt.data.ModelData;
 import com.lib.mgmt.dtos.IssueBookDto;
 import com.lib.mgmt.dtos.IssuedBookStudentDto;
-import com.lib.mgmt.models.IssueBook;
+import com.lib.mgmt.models.library.IssueBook;
 import com.lib.mgmt.services.BookIssueServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;

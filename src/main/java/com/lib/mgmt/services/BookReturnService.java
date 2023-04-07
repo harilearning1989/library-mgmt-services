@@ -1,6 +1,6 @@
 package com.lib.mgmt.services;
 
-import com.lib.mgmt.models.ReturnBook;
+import com.lib.mgmt.models.library.ReturnBook;
 
 import java.util.List;
 

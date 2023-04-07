@@ -1,4 +1,4 @@
-package com.lib.mgmt.models;
+package com.lib.mgmt.models.library;
 
 import javax.persistence.*;
 

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 import com.lib.mgmt.dtos.StudentDTO;
-import com.lib.mgmt.models.Student;
+import com.lib.mgmt.models.library.Student;
 import com.lib.mgmt.repos.library.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,9 @@
 package com.lib.mgmt.controls;
 
 import com.lib.mgmt.dtos.BooksDTO;
-import com.lib.mgmt.models.Book;
+import com.lib.mgmt.models.auth.User;
+import com.lib.mgmt.models.library.Book;
+import com.lib.mgmt.repos.auth.UserRepository;
 import com.lib.mgmt.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,26 @@ public class BookRestController {
     @Autowired
     public void setBookService(BookService bookService) {
         this.bookService = bookService;
+    }
+
+    private UserRepository userRepository;
+
+    @Autowired
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<List<User>> findAllUsers() {
+        try {
+            List<User> userList = userRepository.findAll();
+            if (userList.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(userList, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/all")

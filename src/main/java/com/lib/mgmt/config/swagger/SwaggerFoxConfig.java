@@ -1,4 +1,4 @@
-package com.lib.mgmt.config;
+package com.lib.mgmt.config.swagger;
 
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties;

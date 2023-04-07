@@ -1,8 +1,7 @@
 package com.lib.mgmt.controls;
 
 import com.lib.mgmt.dtos.StudentDTO;
-import com.lib.mgmt.models.Book;
-import com.lib.mgmt.models.Student;
+import com.lib.mgmt.models.library.Student;
 import com.lib.mgmt.services.StudentServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,13 +10,10 @@ import org.mockito.Mock;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
-import javax.persistence.Column;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -27,7 +23,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(fullyQualifiedNames = "com.lib.mgmt")

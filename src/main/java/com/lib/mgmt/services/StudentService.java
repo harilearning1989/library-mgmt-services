@@ -1,7 +1,7 @@
 package com.lib.mgmt.services;
 
 import com.lib.mgmt.dtos.StudentDTO;
-import com.lib.mgmt.models.Student;
+import com.lib.mgmt.models.library.Student;
 
 import java.util.List;
 import java.util.Optional;

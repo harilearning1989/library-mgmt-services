@@ -1,10 +1,8 @@
 package com.lib.mgmt.controls;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lib.mgmt.dtos.BooksDTO;
 import com.lib.mgmt.dtos.StudentDTO;
-import com.lib.mgmt.models.Book;
-import com.lib.mgmt.models.Student;
+import com.lib.mgmt.models.library.Student;
 import com.lib.mgmt.services.StudentServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

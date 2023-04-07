@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.io.Resources;
 import com.lib.mgmt.data.ModelData;
 import com.lib.mgmt.dtos.BooksDTO;
-import com.lib.mgmt.models.Book;
+import com.lib.mgmt.models.library.Book;
 import com.lib.mgmt.repos.library.BookRepository;
 import com.lib.mgmt.repos.library.TranxlogRepository;
 import com.lib.mgmt.utils.LibraryUtils;

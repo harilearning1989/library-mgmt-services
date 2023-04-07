@@ -1,6 +1,6 @@
 package com.lib.mgmt.repos.library;
 
-import com.lib.mgmt.models.Book;
+import com.lib.mgmt.models.library.Book;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

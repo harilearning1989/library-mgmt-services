@@ -1,9 +1,9 @@
 package com.lib.mgmt.data;
 
 import com.lib.mgmt.dtos.IssuedBookStudentDto;
-import com.lib.mgmt.models.Book;
-import com.lib.mgmt.models.IssueBook;
-import com.lib.mgmt.models.ReturnBook;
+import com.lib.mgmt.models.library.Book;
+import com.lib.mgmt.models.library.IssueBook;
+import com.lib.mgmt.models.library.ReturnBook;
 
 import java.util.ArrayList;
 import java.util.List;

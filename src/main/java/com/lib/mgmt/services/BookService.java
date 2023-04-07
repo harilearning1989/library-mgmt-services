@@ -1,8 +1,7 @@
 package com.lib.mgmt.services;
 
 import com.lib.mgmt.dtos.BooksDTO;
-import com.lib.mgmt.models.Book;
-import org.springframework.http.ResponseEntity;
+import com.lib.mgmt.models.library.Book;
 
 import java.util.List;
 

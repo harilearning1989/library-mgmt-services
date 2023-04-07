@@ -2,7 +2,7 @@ package com.lib.mgmt.repos.library;
 
 import com.lib.mgmt.constants.LibraryConstants;
 import com.lib.mgmt.dtos.IssuedBookStudentDto;
-import com.lib.mgmt.models.IssueBook;
+import com.lib.mgmt.models.library.IssueBook;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

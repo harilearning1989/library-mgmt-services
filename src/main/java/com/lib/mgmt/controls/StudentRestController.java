@@ -1,8 +1,7 @@
 package com.lib.mgmt.controls;
 
 import com.lib.mgmt.dtos.StudentDTO;
-import com.lib.mgmt.models.Book;
-import com.lib.mgmt.models.Student;
+import com.lib.mgmt.models.library.Student;
 import com.lib.mgmt.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

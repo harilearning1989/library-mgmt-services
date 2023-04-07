@@ -2,7 +2,7 @@ package com.lib.mgmt.services;
 
 import com.lib.mgmt.dtos.IssueBookDto;
 import com.lib.mgmt.dtos.IssuedBookStudentDto;
-import com.lib.mgmt.models.IssueBook;
+import com.lib.mgmt.models.library.IssueBook;
 
 import java.util.List;
 
