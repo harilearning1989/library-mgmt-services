@@ -1,4 +1,4 @@
-package com.lib.mgmt.repos;
+package com.lib.mgmt.repos.library;
 
 import com.lib.mgmt.constants.LibraryConstants;
 import com.lib.mgmt.dtos.IssuedBookStudentDto;

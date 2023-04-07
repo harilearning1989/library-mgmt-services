@@ -2,7 +2,7 @@ package com.lib.mgmt.services;
 
 import com.lib.mgmt.dtos.EmployeeDTO;
 import com.lib.mgmt.models.Employee;
-import com.lib.mgmt.repos.EmployeeRepo;
+import com.lib.mgmt.repos.library.EmployeeRepo;
 import com.lib.mgmt.utils.EmployeeUtils;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -95,8 +95,7 @@ public class EmployeeServiceImplTest {
         final EmployeeServiceImpl spiedEmpService = PowerMockito.spy(employeeServiceImpl);
         PowerMockito.doReturn(empDataFilter).when(spiedEmpService, "getEmployeesUnderManager", anyInt(), anyList());
 
-        int managerId = 76127;
-        List<EmployeeDTO> empList = employeeServiceImpl.findAllUnderManager(managerId);
+        List<EmployeeDTO> empList = employeeServiceImpl.findAllUnderManager(76127);
 
         assertEquals(empDataFilter.size(),empList.size());
     }

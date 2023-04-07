@@ -5,7 +5,7 @@ import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 import com.lib.mgmt.dtos.EmployeeDTO;
 import com.lib.mgmt.models.Employee;
-import com.lib.mgmt.repos.EmployeeRepo;
+import com.lib.mgmt.repos.library.EmployeeRepo;
 import com.lib.mgmt.utils.EmployeeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

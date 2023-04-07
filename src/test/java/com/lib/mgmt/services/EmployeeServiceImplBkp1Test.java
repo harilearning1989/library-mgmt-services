@@ -1,7 +1,7 @@
 package com.lib.mgmt.services;
 
 import com.lib.mgmt.models.Employee;
-import com.lib.mgmt.repos.EmployeeRepo;
+import com.lib.mgmt.repos.library.EmployeeRepo;
 import org.junit.Ignore;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

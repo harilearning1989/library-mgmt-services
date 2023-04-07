@@ -1,6 +1,7 @@
 package com.lib.mgmt.data;
 
 import com.lib.mgmt.dtos.IssuedBookStudentDto;
+import com.lib.mgmt.models.Book;
 import com.lib.mgmt.models.IssueBook;
 import com.lib.mgmt.models.ReturnBook;
 
@@ -9,6 +10,23 @@ import java.util.List;
 
 public class ModelData {
 
+    public static List<Book> getBookList() {
+        List<Book> bookList = new ArrayList<>();
+
+        Book book = new Book();
+        book.setId(12);
+        book.setBookName("Java");
+        book.setIsbn("1234");
+        bookList.add(book);
+
+        book = new Book();
+        book.setId(12);
+        book.setBookName("Java");
+        book.setIsbn("1234");
+        bookList.add(book);
+
+        return bookList;
+    }
     public static List<IssueBook> getIssueBookList() {
         List<IssueBook> issueBookList = new ArrayList<>();
         IssueBook book = new IssueBook();

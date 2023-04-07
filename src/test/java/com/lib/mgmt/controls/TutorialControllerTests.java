@@ -2,7 +2,7 @@ package com.lib.mgmt.controls;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lib.mgmt.models.Tutorial;
-import com.lib.mgmt.repos.TutorialRepository;
+import com.lib.mgmt.repos.library.TutorialRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

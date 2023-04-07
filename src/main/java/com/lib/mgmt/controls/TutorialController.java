@@ -2,7 +2,7 @@ package com.lib.mgmt.controls;
 
 
 import com.lib.mgmt.models.Tutorial;
-import com.lib.mgmt.repos.TutorialRepository;
+import com.lib.mgmt.repos.library.TutorialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

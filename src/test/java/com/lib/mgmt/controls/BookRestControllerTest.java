@@ -1,5 +1,6 @@
 package com.lib.mgmt.controls;
 
+import com.lib.mgmt.data.ModelData;
 import com.lib.mgmt.dtos.BooksDTO;
 import com.lib.mgmt.models.Book;
 import com.lib.mgmt.services.BookServiceImpl;
@@ -42,7 +43,7 @@ public class BookRestControllerTest {
     public void findAllNotEmptyTest(){
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-        List<Book> bookList = getBookList();
+        List<Book> bookList = ModelData.getBookList();
         when(bookService.findAll()).thenReturn(bookList);
         ResponseEntity<List<Book>> responseEntity = bookRestController.findAllBooks();
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
@@ -72,7 +73,7 @@ public class BookRestControllerTest {
     public void searchBookCustomNotEmptyTest(){
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-        List<Book> bookList = getBookList();
+        List<Book> bookList = ModelData.getBookList();
         Book book = new Book();
         book.setId(12);
         book.setBookName("Java");
@@ -143,7 +144,7 @@ public class BookRestControllerTest {
     public void findAvailableBooksTest(){
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-        List<Book> bookList = getBookList();
+        List<Book> bookList = ModelData.getBookList();
         when(bookService.findAvailableBooks()).thenReturn(bookList);
         ResponseEntity<List<Book>> responseEntity = bookRestController.findAvailableBooks();
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
@@ -173,7 +174,7 @@ public class BookRestControllerTest {
     public void saveAllBooksTest(){
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-        List<Book> bookList = getBookList();
+        List<Book> bookList = ModelData.getBookList();
         when(bookService.saveAllBooks()).thenReturn(bookList);
         ResponseEntity<List<Book>> responseEntity = bookRestController.saveAllBooks();
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
@@ -233,7 +234,7 @@ public class BookRestControllerTest {
     public void searchBookOldTest() {
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-        List<Book> bookList = getBookList();
+        List<Book> bookList = ModelData.getBookList();
         Book book = new Book();
         book.setId(12);
         book.setBookName("Java");
@@ -276,7 +277,7 @@ public class BookRestControllerTest {
     public void findBookSearchCriteriaTest() {
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-        List<Book> bookList = getBookList();
+        List<Book> bookList = ModelData.getBookList();
         when(bookService.findBookSearchCriteria("1617290904","Java","Mc Tata")).thenReturn(bookList);
         ResponseEntity<List<Book>> responseEntity = bookRestController.findBookSearchCriteria("1617290904","Java","Mc Tata");
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
@@ -355,22 +356,4 @@ public class BookRestControllerTest {
         return booksDTOList;
     }
 
-    private List<Book> getBookList() {
-
-        List<Book> bookList = new ArrayList<>();
-
-        Book book = new Book();
-        book.setId(12);
-        book.setBookName("Java");
-        book.setIsbn("1234");
-        bookList.add(book);
-
-        book = new Book();
-        book.setId(12);
-        book.setBookName("Java");
-        book.setIsbn("1234");
-        bookList.add(book);
-
-        return bookList;
-    }
 }

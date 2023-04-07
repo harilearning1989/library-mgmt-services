@@ -15,6 +15,9 @@ public class LibraryManagementApplication implements CommandLineRunner {
 
 	//http://localhost:8081/swagger-ui/index.html
 	//https://mkyong.com/spring-boot/spring-rest-validation-example/
+	//spring-security/spring-boot-security-jwt-auth-api/
+	//https://github.com/roytuts/spring-security/tree/master/spring-boot-security-jwt-auth-api
+	//https://github.com/roytuts/angular/tree/master/angular-spring-boot-jwt-auth
 	public static void main(String[] args) {
 		SpringApplication app = new SpringApplication(LibraryManagementApplication.class);
 		app.setBannerMode(Banner.Mode.OFF);

@@ -9,30 +9,23 @@ import com.lib.mgmt.exceptions.StudentNotFoundException;
 import com.lib.mgmt.models.Book;
 import com.lib.mgmt.models.IssueBook;
 import com.lib.mgmt.models.Student;
-import com.lib.mgmt.repos.BookIssueRepository;
-import com.lib.mgmt.repos.BookRepository;
-import com.lib.mgmt.repos.StudentRepository;
+import com.lib.mgmt.repos.library.BookIssueRepository;
+import com.lib.mgmt.repos.library.BookRepository;
+import com.lib.mgmt.repos.library.StudentRepository;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyList;
-import static org.mockito.BDDMockito.willDoNothing;
 import static org.mockito.Mockito.*;
 
 @RunWith(PowerMockRunner.class)

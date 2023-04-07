@@ -1,4 +1,4 @@
-package com.lib.mgmt.repos;
+package com.lib.mgmt.repos.library;
 
 import com.lib.mgmt.models.Book;
 import org.springframework.data.jpa.domain.Specification;
