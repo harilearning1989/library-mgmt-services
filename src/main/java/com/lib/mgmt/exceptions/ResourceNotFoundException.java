@@ -1,4 +1,4 @@
-package com.lib.mgmt.exception;
+package com.lib.mgmt.exceptions;
 
 public class ResourceNotFoundException extends Exception{
 }
