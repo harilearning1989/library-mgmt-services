@@ -3,7 +3,7 @@ package com.lib.mgmt.controls;
 import com.lib.mgmt.data.ModelData;
 import com.lib.mgmt.dtos.BooksDTO;
 import com.lib.mgmt.models.library.Book;
-import com.lib.mgmt.services.BookServiceImpl;
+import com.lib.mgmt.services.library.BookServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

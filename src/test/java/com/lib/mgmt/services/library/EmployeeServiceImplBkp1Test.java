@@ -1,4 +1,4 @@
-package com.lib.mgmt.services;
+package com.lib.mgmt.services.library;
 
 import com.lib.mgmt.models.library.Employee;
 import com.lib.mgmt.repos.library.EmployeeRepo;

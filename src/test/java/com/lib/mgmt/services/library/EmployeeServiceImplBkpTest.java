@@ -1,4 +1,4 @@
-package com.lib.mgmt.services;
+package com.lib.mgmt.services.library;
 
 import com.lib.mgmt.exception.ResourceNotFoundException;
 import com.lib.mgmt.models.library.Employee;

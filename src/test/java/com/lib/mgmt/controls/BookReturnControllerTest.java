@@ -1,7 +1,7 @@
 package com.lib.mgmt.controls;
 
 import com.lib.mgmt.models.library.ReturnBook;
-import com.lib.mgmt.services.BookReturnServiceImpl;
+import com.lib.mgmt.services.library.BookReturnServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

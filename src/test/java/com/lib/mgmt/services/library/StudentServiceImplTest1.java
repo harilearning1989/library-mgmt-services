@@ -1,4 +1,4 @@
-package com.lib.mgmt.services;
+package com.lib.mgmt.services.library;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

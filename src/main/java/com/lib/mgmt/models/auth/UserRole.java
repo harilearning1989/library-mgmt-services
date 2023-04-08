@@ -2,7 +2,7 @@ package com.lib.mgmt.models.auth;
 
 import javax.persistence.*;
 
-@Table
+@Table(name = "USER_ROLE")
 @Entity
 public class UserRole {
 

@@ -4,7 +4,7 @@ import com.lib.mgmt.dtos.BooksDTO;
 import com.lib.mgmt.models.auth.User;
 import com.lib.mgmt.models.library.Book;
 import com.lib.mgmt.repos.auth.UserRepository;
-import com.lib.mgmt.services.BookService;
+import com.lib.mgmt.services.library.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

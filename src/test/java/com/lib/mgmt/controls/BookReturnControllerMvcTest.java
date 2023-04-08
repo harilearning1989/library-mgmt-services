@@ -4,7 +4,7 @@ package com.lib.mgmt.controls;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lib.mgmt.data.ModelData;
 import com.lib.mgmt.models.library.ReturnBook;
-import com.lib.mgmt.services.BookReturnServiceImpl;
+import com.lib.mgmt.services.library.BookReturnServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

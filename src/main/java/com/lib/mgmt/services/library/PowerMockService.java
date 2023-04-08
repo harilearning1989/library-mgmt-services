@@ -1,4 +1,4 @@
-package com.lib.mgmt.services;
+package com.lib.mgmt.services.library;
 
 public class PowerMockService {
 

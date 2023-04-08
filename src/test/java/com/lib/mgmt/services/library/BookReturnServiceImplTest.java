@@ -1,4 +1,4 @@
-package com.lib.mgmt.services;
+package com.lib.mgmt.services.library;
 
 import com.lib.mgmt.data.ModelData;
 import com.lib.mgmt.exceptions.BookNotFoundException;

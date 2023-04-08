@@ -2,7 +2,7 @@ package com.lib.mgmt.controls;
 
 import com.lib.mgmt.dtos.EmployeeDTO;
 import com.lib.mgmt.models.library.Employee;
-import com.lib.mgmt.services.EmployeeServiceImpl;
+import com.lib.mgmt.services.library.EmployeeServiceImpl;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;

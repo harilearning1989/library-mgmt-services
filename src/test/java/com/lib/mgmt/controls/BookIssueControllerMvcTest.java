@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lib.mgmt.dtos.IssueBookDto;
 import com.lib.mgmt.dtos.IssuedBookStudentDto;
 import com.lib.mgmt.models.library.IssueBook;
-import com.lib.mgmt.services.BookIssueServiceImpl;
+import com.lib.mgmt.services.library.BookIssueServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

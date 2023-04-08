@@ -1,4 +1,4 @@
-package com.lib.mgmt.services;
+package com.lib.mgmt.services.library;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

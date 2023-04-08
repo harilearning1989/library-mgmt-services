@@ -3,7 +3,7 @@ package com.lib.mgmt.controls;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lib.mgmt.dtos.StudentDTO;
 import com.lib.mgmt.models.library.Student;
-import com.lib.mgmt.services.StudentServiceImpl;
+import com.lib.mgmt.services.library.StudentServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

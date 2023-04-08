@@ -3,7 +3,7 @@ package com.lib.mgmt.controls;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lib.mgmt.dtos.BooksDTO;
 import com.lib.mgmt.models.library.Book;
-import com.lib.mgmt.services.BookServiceImpl;
+import com.lib.mgmt.services.library.BookServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

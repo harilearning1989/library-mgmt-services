@@ -3,7 +3,7 @@ package com.lib.mgmt.controls;
 import com.lib.mgmt.dtos.IssueBookDto;
 import com.lib.mgmt.dtos.IssuedBookStudentDto;
 import com.lib.mgmt.models.library.IssueBook;
-import com.lib.mgmt.services.BookIssueService;
+import com.lib.mgmt.services.library.BookIssueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

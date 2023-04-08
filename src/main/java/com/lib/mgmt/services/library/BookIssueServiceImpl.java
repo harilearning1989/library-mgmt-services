@@ -1,4 +1,4 @@
-package com.lib.mgmt.services;
+package com.lib.mgmt.services.library;
 
 import com.lib.mgmt.constants.LibraryConstants;
 import com.lib.mgmt.dtos.IssueBookDto;

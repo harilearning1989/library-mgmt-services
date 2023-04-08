@@ -1,7 +1,7 @@
 package com.lib.mgmt.controls;
 
 import com.lib.mgmt.models.library.ReturnBook;
-import com.lib.mgmt.services.BookReturnService;
+import com.lib.mgmt.services.library.BookReturnService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

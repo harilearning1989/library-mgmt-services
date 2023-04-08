@@ -1,14 +1,9 @@
 package com.lib.mgmt;
 
-import com.lib.mgmt.dtos.StudentDTO;
-import com.lib.mgmt.services.StudentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.util.List;
 
 @SpringBootApplication
 public class LibraryManagementApplication implements CommandLineRunner {

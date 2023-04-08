@@ -2,7 +2,7 @@ package com.lib.mgmt.controls;
 
 import com.lib.mgmt.dtos.StudentDTO;
 import com.lib.mgmt.models.library.Student;
-import com.lib.mgmt.services.StudentServiceImpl;
+import com.lib.mgmt.services.library.StudentServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
