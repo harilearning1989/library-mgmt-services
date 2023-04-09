@@ -6,6 +6,7 @@ import com.lib.mgmt.exceptions.auth.DisabledUserException;
 import com.lib.mgmt.exceptions.auth.InvalidUserCredentialsException;
 import com.lib.mgmt.services.auth.UserAuthService;
 import com.lib.mgmt.utils.auth.JwtUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,51 +31,47 @@ public class AuthenticationController {
     private JwtUtil jwtUtil;
     private UserAuthService userAuthService;
     private AuthenticationManager authenticationManager;
-
     @Autowired
     public void setJwtUtil(JwtUtil jwtUtil) {
         this.jwtUtil = jwtUtil;
     }
-
     @Autowired
     public void setUserAuthService(UserAuthService userAuthService) {
         this.userAuthService = userAuthService;
     }
-
     @Autowired
     public void setAuthenticationManager(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
-
-    @PostMapping("/signin")
+    @PostMapping("/login")
     public ResponseEntity<Response> generateJwtToken(@RequestBody Request request) {
         Authentication authentication = null;
         try {
             authentication = authenticationManager
-                    .authenticate(new UsernamePasswordAuthenticationToken(request.getUserName(), request.getUserPwd()));
+                    .authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         } catch (DisabledException e) {
             throw new DisabledUserException("User Inactive");
         } catch (BadCredentialsException e) {
             throw new InvalidUserCredentialsException("Invalid Credentials");
         }
-
         User user = (User) authentication.getPrincipal();
         Set<String> roles = user.getAuthorities().stream().map(r -> r.getAuthority()).collect(Collectors.toSet());
-
         String token = jwtUtil.generateToken(authentication);
-
         Response response = new Response();
         response.setToken(token);
         response.setRoles(roles.stream().collect(Collectors.toList()));
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
-    @PostMapping("/signup")
+    @PostMapping("/register")
     public ResponseEntity<String> signup(@RequestBody Request request) {
-        userAuthService.saveUser(request);
-
-        return new ResponseEntity<>("User successfully registered", HttpStatus.OK);
+        String username = userAuthService.findByUserName(request.getUsername());
+        if(StringUtils.isNotEmpty(username)){
+            return new ResponseEntity<>("User Already Exists", HttpStatus.CONFLICT);
+        }else{
+            userAuthService.saveUser(request);
+        }
+        return new ResponseEntity<>("User "+request.getUsername()+" successfully registered", HttpStatus.OK);
     }
 
 }

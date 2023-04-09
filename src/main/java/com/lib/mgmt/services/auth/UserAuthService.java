@@ -20,12 +20,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserAuthService implements UserDetailsService {
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
-
-    @Autowired
     private UserRepository userRepository;
+    @Autowired
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+    @Autowired
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     @Transactional
@@ -41,14 +45,20 @@ public class UserAuthService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(username, user.getUserPass(), grantedAuthorities);
     }
 
-    public void saveUser(Request request) {
-        if (userRepository.findByUserName(request.getUserName()).isPresent()) {
-            throw new RuntimeException("User already exists");
+    public String findByUserName(String username) {
+        if (userRepository.findByUserName(username).isPresent()) {
+            return username;
         }
-
+        return null;
+    }
+    public String saveUser(Request request) {
         User user = new User();
-        user.setUserName(request.getUserName());
-        user.setUserPass(passwordEncoder.encode(request.getUserPwd()));
+        user.setUserName(request.getUsername());
+        user.setUserPass(passwordEncoder.encode(request.getPassword()));
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
+        user.setEmail(request.getEmail());
+        user.setPhone(request.getPhone());
 
         user.setUserRoles(request.getRoles().stream().map(r -> {
             UserRole ur = new UserRole();
@@ -57,6 +67,7 @@ public class UserAuthService implements UserDetailsService {
         }).collect(Collectors.toSet()));
 
         userRepository.save(user);
+        return "User "+request.getUsername()+" Saved Successfully";
     }
 
 }
