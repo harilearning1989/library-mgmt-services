@@ -239,12 +239,13 @@ public class BookServiceImpl implements BookService {
                 predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("isbn"), isbn.trim())));
             }
             if (subject != null && StringUtils.isNotEmpty(subject.trim())) {
-                predicates.add(criteriaBuilder.and(criteriaBuilder.equal(
-                        criteriaBuilder.upper(root.get("subject")), subject.toUpperCase())));
+                predicates.add(criteriaBuilder.and(criteriaBuilder.like(
+                        criteriaBuilder.upper(root.get("subject")), "%"+subject.trim().toUpperCase()+"%"
+                )));
             }
             if (bookName != null && StringUtils.isNotEmpty(bookName)) {
-                predicates.add(criteriaBuilder.and(criteriaBuilder.equal(
-                        criteriaBuilder.upper(root.get("bookName")), bookName.trim().toUpperCase())));
+                predicates.add(criteriaBuilder.and(criteriaBuilder.like(
+                        criteriaBuilder.upper(root.get("bookName")), "%"+bookName.trim().toUpperCase()+"%")));
             }
             return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         });
