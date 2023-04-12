@@ -2,11 +2,14 @@ package com.lib.mgmt.controls;
 
 import com.lib.mgmt.dtos.Request;
 import com.lib.mgmt.dtos.Response;
+import com.lib.mgmt.dtos.auth.LoginRequest;
 import com.lib.mgmt.exceptions.auth.DisabledUserException;
 import com.lib.mgmt.exceptions.auth.InvalidUserCredentialsException;
 import com.lib.mgmt.services.auth.UserAuthService;
 import com.lib.mgmt.utils.auth.JwtUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -28,6 +32,7 @@ import java.util.stream.Collectors;
 @CrossOrigin(value = "http://localhost:4200")
 public class AuthenticationController {
 
+    private static final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
     private JwtUtil jwtUtil;
     private UserAuthService userAuthService;
     private AuthenticationManager authenticationManager;
@@ -43,8 +48,10 @@ public class AuthenticationController {
     public void setAuthenticationManager(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
+
     @PostMapping("/login")
-    public ResponseEntity<Response> generateJwtToken(@RequestBody Request request) {
+    public ResponseEntity<Response> login(
+             @Valid @RequestBody LoginRequest request) {
         Authentication authentication = null;
         try {
             authentication = authenticationManager
@@ -64,7 +71,8 @@ public class AuthenticationController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
     @PostMapping("/register")
-    public ResponseEntity<String> signup(@RequestBody Request request) {
+    public ResponseEntity<String> register(
+            @Valid @RequestBody Request request) {
         String username = userAuthService.findByUserName(request.getUsername());
         if(StringUtils.isNotEmpty(username)){
             return new ResponseEntity<>("User Already Exists", HttpStatus.CONFLICT);

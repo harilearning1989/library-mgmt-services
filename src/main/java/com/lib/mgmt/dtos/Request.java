@@ -1,13 +1,37 @@
 package com.lib.mgmt.dtos;
 
+import com.lib.mgmt.validators.Phone;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 public class Request {
+    @NotEmpty
+    @Size(min = 4,max = 20)
+    @Pattern(regexp = "^[a-zA-Z0-9 ]+$",message = "Special characters not allowed")
     private String firstName;
+    @NotEmpty
+    @Size(min = 4,max = 20)
+    @Pattern(regexp = "^[a-zA-Z0-9 ]+$",message = "Special characters not allowed")
     private String lastName;
+    @NotEmpty
+    @Size(min = 4,max = 20)
+    @Pattern(regexp = "^[a-zA-Z ]+$",message = "Special characters and Numbers not allowed")
     private String username;
+    @NotEmpty
+    @Size(min = 6,max = 20)
+    @Pattern(regexp = "^[a-zA-Z0-9 ]+$",message = "Special characters not allowed")
     private String password;
+    //@Pattern(regexp = "^[a-zA-Z0-9.\\-\\/+=@_ ]*$")
+    @Pattern(regexp = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
+    @NotEmpty
+    @Email
+    @Size(max = 20)
     private String email;
+    @Phone
     private String phone;
     private List<String> roles;
 
@@ -32,7 +56,7 @@ public class Request {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.username = username.trim();
     }
 
     public String getPassword() {
@@ -40,7 +64,7 @@ public class Request {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = password.trim();
     }
 
     public String getEmail() {
