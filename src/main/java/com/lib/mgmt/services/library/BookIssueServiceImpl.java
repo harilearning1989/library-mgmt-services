@@ -55,9 +55,9 @@ public class BookIssueServiceImpl implements BookIssueService{
                 ()-> new StudentNotFoundException(LibraryConstants.NO_STUDENT_FOUND_WITH_THIS_ID + issueBookDto.getStudentId()));
         /*Book book = bookRepository.findById(issueBookDto.getBookId()).orElseThrow(
                 ()-> new BookNotFoundException(LibraryConstants.NO_BOOK_FOUND_WITH_THIS_ID + issueBookDto.getBookId()));*/
-        Book book = bookRepository.findByIdAndAvailBooksGreaterThanEqual(issueBookDto.getBookId(),1).orElseThrow(
-                ()-> new BookNotFoundException(LibraryConstants.NO_BOOK_FOUND_WITH_THIS_ID + issueBookDto.getBookId()));
-        long count = bookIssueRepository.countByBookIdAndStudentId(issueBookDto.getBookId(),issueBookDto.getStudentId());
+        Book book = bookRepository.findByIsbnAndAvailBooksGreaterThanEqual(issueBookDto.getIsbn(),1).orElseThrow(
+                ()-> new BookNotFoundException(LibraryConstants.NO_BOOK_FOUND_WITH_THIS_ID + issueBookDto.getIsbn()));
+        long count = bookIssueRepository.countByIsbnAndStudentId(issueBookDto.getIsbn(),issueBookDto.getStudentId());
         if(count > 2)
             throw new BookAlreadyIssuedException(String.format(LibraryConstants.BOOK_ALREADY_ISSUED,student.getStudentName(),count));
         IssueBook issueBook = convertDtoToModel(issueBookDto);
@@ -74,17 +74,10 @@ public class BookIssueServiceImpl implements BookIssueService{
         return bookIssueRepository.findIssuedBooksForStudent(studentId);
     }
 
-    @Override
-    public List<IssuedBookStudentDto> sameBookIssuedForStudents(int bookId) {
-        return bookIssueRepository.sameBookIssuedForStudents(bookId);
-    }
 
     private IssueBook convertDtoToModel(IssueBookDto issueBookDto) {
         IssueBook issueBook = new IssueBook();
-        issueBook.setDuration(issueBookDto.getDuration());
-        issueBook.setPeriod(issueBookDto.getPeriod());
         issueBook.setStudentId(issueBookDto.getStudentId());
-        issueBook.setBookId(issueBookDto.getBookId());
         issueBook.setIssuedDate(new Date());
 
         return issueBook;

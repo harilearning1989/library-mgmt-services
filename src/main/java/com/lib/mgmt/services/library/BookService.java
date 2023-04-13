@@ -19,7 +19,7 @@ public interface BookService {
     List<Book> searchBookCustom(Book book);
 
     List<Book> findAvailableBooks();
-    List<Book> findBookSearchCriteria(String isbn,String subject,String bookName);
+    List<Book> findBookSearchCriteria(int isbn,String subject,String bookName);
 
     Book updateBook(Book book);
 

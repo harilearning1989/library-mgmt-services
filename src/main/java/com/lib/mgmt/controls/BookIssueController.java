@@ -45,6 +45,15 @@ public class BookIssueController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         return new ResponseEntity<>(_issueBook, HttpStatus.CREATED);
     }
+
+    @PostMapping("/issueNewBook")
+    public ResponseEntity<IssueBook> issueBook(
+            @Valid @RequestBody IssueBookDto issueBookDto) {
+        IssueBook _issueBook = bookIssueService.issueNewBook(issueBookDto);
+        if(_issueBook == null)
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(_issueBook, HttpStatus.CREATED);
+    }
     //Api for How many books issued for the Student
     @GetMapping("/issuedBooksForStudent/{studentId}")
     public ResponseEntity<List<IssuedBookStudentDto>> findIssuedBooksForStudent(
@@ -59,20 +68,7 @@ public class BookIssueController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    //API for how many students taken the Same Book
-    @GetMapping("/sameBookIssuedForStudents/{bookId}")
-    public ResponseEntity<List<IssuedBookStudentDto>> sameBookIssuedForStudents(
-            @PathVariable("bookId") int bookId) {
-        List<IssuedBookStudentDto> bookList = bookIssueService.sameBookIssuedForStudents(bookId);
-        try {
-            if (bookList.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-            return new ResponseEntity<>(bookList, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+
 
     /*@PostMapping("/issueBook")
     public ResponseEntity<IssueBook> issueNewBook(

@@ -72,11 +72,11 @@ public class BookIssueControllerTest {
     @Test
     public void issueNewBookTest() {
         IssueBookDto request = new IssueBookDto();
-        request.setBookId(1234);
+        request.setIsbn("1234");
         request.setStudentId(76127);
 
         IssueBook response = new IssueBook();
-        response.setBookId(1234);
+        response.setIsbn("1234");
         response.setId(12);
         response.setStudentId(76127);
 
@@ -88,11 +88,11 @@ public class BookIssueControllerTest {
     @Test
     public void issueNewBookExceptionTest() {
         IssueBookDto request = new IssueBookDto();
-        request.setBookId(1234);
+        request.setIsbn("1234");
         request.setStudentId(76127);
 
         IssueBook response = new IssueBook();
-        response.setBookId(1234);
+        response.setIsbn("1234");
         response.setId(12);
         response.setStudentId(76127);
 

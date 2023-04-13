@@ -80,12 +80,12 @@ public class BookIssueServiceImplTest {
 
         when(studentRepository.findByStudentId(76127)).thenReturn(Optional.of(response));
         when(bookRepository.findByIdAndAvailBooksGreaterThanEqual(12,1)).thenReturn(Optional.of(book));
-        when(bookIssueRepository.countByBookIdAndStudentId(12,76127)).thenReturn(2l);
+        when(bookIssueRepository.countByIsbnAndStudentId("12",76127)).thenReturn(2l);
         when(bookIssueRepository.save(any(IssueBook.class))).thenReturn(responseIssueBook);
 
         IssueBookDto dto = new IssueBookDto();
         dto.setStudentId(76127);
-        dto.setBookId(12);
+        dto.setIsbn("12");
         IssueBook issueBook = bookIssueService.issueNewBook(dto);
 
         assertEquals(response.getStudentId(),issueBook.getStudentId());
@@ -143,12 +143,12 @@ public class BookIssueServiceImplTest {
 
         when(studentRepository.findByStudentId(76127)).thenReturn(Optional.of(response));
         when(bookRepository.findByIdAndAvailBooksGreaterThanEqual(12,1)).thenReturn(Optional.of(book));
-        when(bookIssueRepository.countByBookIdAndStudentId(12,76127)).thenReturn(7l);
+        when(bookIssueRepository.countByIsbnAndStudentId("12",76127)).thenReturn(7l);
         when(bookIssueRepository.save(any(IssueBook.class))).thenReturn(responseIssueBook);
 
         IssueBookDto dto = new IssueBookDto();
         dto.setStudentId(76127);
-        dto.setBookId(12);
+        dto.setIsbn("12");
         IssueBook issueBook = bookIssueService.issueNewBook(dto);
 
         assertEquals(response.getStudentId(),issueBook.getStudentId());

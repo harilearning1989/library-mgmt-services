@@ -9,9 +9,8 @@ import java.util.List;
 public interface BookIssueService {
     List<IssueBook> findAllIssuedBooks();
 
-    IssueBook issueNewBook(IssueBookDto issueBook);
-
     List<IssuedBookStudentDto> findIssuedBooksForStudent(int studentId);
 
-    List<IssuedBookStudentDto> sameBookIssuedForStudents(int bookId);
+    IssueBook issueNewBook(IssueBookDto issueBookDto);
+
 }

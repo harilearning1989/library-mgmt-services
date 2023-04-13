@@ -6,21 +6,17 @@ public class IssuedBookStudentDto {
 
     private int studentId;
     private String studentName;
-    private int bookId;
+    private int isbn;
     private String bookName;
     private Date issuedDate;
-    private int period;
-    private String duration;
 
     public IssuedBookStudentDto(){}
-    public IssuedBookStudentDto(int studentId,String studentName,int bookId,String bookName,Date issuedDate,int period,String duration){
+    public IssuedBookStudentDto(int studentId,String studentName,int isbn,String bookName,Date issuedDate){
         this.studentId = studentId;
         this.studentName = studentName;
-        this.bookId = bookId;
         this.bookName = bookName;
         this.issuedDate = issuedDate;
-        this.period = period;
-        this.duration = duration;
+        this.isbn = isbn;
     }
 
     public int getStudentId() {
@@ -39,14 +35,6 @@ public class IssuedBookStudentDto {
         this.studentName = studentName;
     }
 
-    public int getBookId() {
-        return bookId;
-    }
-
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
-    }
-
     public String getBookName() {
         return bookName;
     }
@@ -63,19 +51,11 @@ public class IssuedBookStudentDto {
         this.issuedDate = issuedDate;
     }
 
-    public int getPeriod() {
-        return period;
+    public int getIsbn() {
+        return isbn;
     }
 
-    public void setPeriod(int period) {
-        this.period = period;
-    }
-
-    public String getDuration() {
-        return duration;
-    }
-
-    public void setDuration(String duration) {
-        this.duration = duration;
+    public void setIsbn(int isbn) {
+        this.isbn = isbn;
     }
 }

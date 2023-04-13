@@ -65,13 +65,11 @@ public class BookIssueControllerMvcTest {
     @Test
     public void issueNewBookTest()throws Exception {
         IssueBookDto request = new IssueBookDto();
-        request.setBookId(1234);
+        request.setIsbn("1234");
         request.setStudentId(76127);
-        request.setPeriod(2);
-        request.setDuration("DAY");
 
         IssueBook response = new IssueBook();
-        response.setBookId(1234);
+        response.setIsbn("1234");
         response.setId(12);
         response.setStudentId(76127);
         given(bookIssueService.issueNewBook(any(IssueBookDto.class)))
@@ -82,17 +80,15 @@ public class BookIssueControllerMvcTest {
 
         resultActions.andDo(print()).
                 andExpect(status().isCreated())
-                .andExpect(jsonPath("$.bookId").value(response.getBookId()))
+                .andExpect(jsonPath("$.bookId").value(response.getIsbn()))
                 .andDo(print());
     }
 
     @Test
     public void issueNewBookExceptionTest()throws Exception {
         IssueBookDto request = new IssueBookDto();
-        request.setBookId(1234);
+        request.setIsbn("1234");
         request.setStudentId(76127);
-        request.setPeriod(2);
-        request.setDuration("DAY");
 
         given(bookIssueService.issueNewBook(any(IssueBookDto.class)))
                 .willReturn(null);
@@ -202,14 +198,14 @@ public class BookIssueControllerMvcTest {
     private List<IssueBook> getIssueBookList() {
         List<IssueBook> issueBookList = new ArrayList<>();
         IssueBook book = new IssueBook();
-        book.setBookId(1234);
+        book.setIsbn("1234");
         book.setId(12);
         book.setStudentId(76127);
 
         issueBookList.add(book);
 
         book = new IssueBook();
-        book.setBookId(1234);
+        book.setIsbn("1234");
         book.setId(12);
         book.setStudentId(76127);
 

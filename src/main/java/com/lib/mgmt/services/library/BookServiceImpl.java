@@ -66,9 +66,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book createBook(Book book) {
-        if(StringUtils.isNotEmpty(book.getIsbn())){
-            book.setIsbn(book.getIsbn().trim());
-        }
+            book.setIsbn(book.getIsbn());
         if(StringUtils.isNotEmpty(book.getBookName())){
             book.setBookName(book.getBookName().trim());
         }
@@ -78,7 +76,6 @@ public class BookServiceImpl implements BookService {
         List<Book> listBook = findBookSearchCriteria(book.getIsbn(),book.getSubject(),book.getBookName());
         if(listBook.isEmpty() || listBook.size() == 0){
             book.setCreatedDate(new Date());
-            book.setUpdatedDate(new Date());
             return bookRepository.save(book);
         }
         return null;
@@ -148,9 +145,6 @@ public class BookServiceImpl implements BookService {
             if (book.getPrice() > 0) {
                 predicates.add(builder.lessThanOrEqualTo(root.get("price"), book.getPrice()));
             }
-            if (book.getPageCount() > 0) {
-                predicates.add(builder.equal(root.get("pageCount"), book.getPageCount()));
-            }
             predicates.add(QueryByExamplePredicateBuilder.getPredicate(root, builder, example));
             return builder.and(predicates.toArray(new Predicate[predicates.size()]));
         };
@@ -174,16 +168,18 @@ public class BookServiceImpl implements BookService {
                 book.setBookName(m.getTitle());
                 book.setBookQty(LibraryUtils.getRandomNumber(100, 1000));
                 if (StringUtils.isNotEmpty(m.getIsbn())) {
-                    book.setIsbn(m.getIsbn());
+                    if(m.getIsbn().length() > 8){
+                        String isbn = m.getIsbn().substring(0,8);
+                        book.setIsbn(Integer.parseInt(isbn.replaceAll("[^0-9]", "")));
+                    }
                 } else {
-                    book.setIsbn(m.getTitle());
+                    book.setIsbn(LibraryUtils.getRandomNumber(1417290084, 1617290084));
                 }
                 if (m.getPublishedDate() != null && StringUtils.isNotEmpty(m.getPublishedDate().getDate().strip())) {
                     book.setPublishedDate(m.getPublishedDate().getDate());//2009-04-01T00:00:00.000-0700
                 } else {
                     book.setPublishedDate(new Date().toString());
                 }
-                book.setThumbnailUrl(m.getThumbnailUrl());
                 if (StringUtils.isNotEmpty(m.getShortDescription())) {
                     book.setShortDescription(LibraryUtils.getSubString(m.getShortDescription(), 500));
                 } else {
@@ -196,25 +192,13 @@ public class BookServiceImpl implements BookService {
                     book.setLongDescription(m.getTitle());
                 }
 
-                book.setStatus(m.getStatus());
                 book.setAuthors(LibraryUtils.listOfStringToString(m.getAuthors()));
 
-                if (!m.getCategories().isEmpty()) {
-                    book.setCategories(LibraryUtils.listOfStringToString(m.getCategories()));
-                } else {
-                    book.setCategories(m.getTitle());
-                }
 
                 book.setPrice(LibraryUtils.getRandomNumber(500, 5000));
-                if (m.getPageCount() > 0) {
-                    book.setPageCount(m.getPageCount());
-                } else {
-                    book.setPageCount(LibraryUtils.getRandomNumber(50, 500));
-                }
                 book.setCreatedDate(new Date());
-                book.setUpdatedDate(new Date());
 
-                book.setAvailBooks(LibraryUtils.getRandomNumber(5, 200));
+                book.setAvailBooks(LibraryUtils.getRandomNumber(0, 200));
 
                 return book;
             }).collect(toList());
@@ -229,14 +213,14 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> findBookSearchCriteria(String isbn, String subject, String bookName) {
+    public List<Book> findBookSearchCriteria(int isbn, String subject, String bookName) {
         logger.info("ISBN::"+isbn+"====Subject::"+subject+"====BookName::"+bookName);
         return bookRepository.findAll((Specification<Book>) (root, query, criteriaBuilder) -> {
 
             List<Predicate> predicates = new ArrayList<>();
-            if (isbn != null && StringUtils.isNotEmpty(isbn)) {
+            if (isbn >= 1) {
                 //predicates.add(criteriaBuilder.and(criteriaBuilder.like(root.get("isbn"), "%"+isbn+"%")));
-                predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("isbn"), isbn.trim())));
+                predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("isbn"), isbn)));
             }
             if (subject != null && StringUtils.isNotEmpty(subject.trim())) {
                 predicates.add(criteriaBuilder.and(criteriaBuilder.like(

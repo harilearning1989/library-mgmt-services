@@ -1,20 +1,23 @@
 package com.lib.mgmt.dtos;
 
-import com.lib.mgmt.validators.DurationEnum;
-import com.lib.mgmt.validators.DurationValidator;
-
-import javax.validation.constraints.Min;
-
 public class IssueBookDto {
 
-    @Min(value = 1, message = "To must be greater than zero")
+    private int id;
     private int studentId;
-    @Min(value = 1, message = "To must be greater than zero")
-    private int bookId;
-    @Min(value = 1, message = "To must be greater than zero")
-    private int period;
-    @DurationValidator(enumClass = DurationEnum.class)
-    private String duration;
+    private String studentName;
+    private String subject;
+    private String bookName;
+    private int isbn;
+    private String authors;
+    private int price;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getStudentId() {
         return studentId;
@@ -24,28 +27,51 @@ public class IssueBookDto {
         this.studentId = studentId;
     }
 
-    public int getBookId() {
-        return bookId;
+    public String getStudentName() {
+        return studentName;
     }
 
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
     }
 
-    public int getPeriod() {
-        return period;
+    public String getSubject() {
+        return subject;
     }
 
-    public void setPeriod(int period) {
-        this.period = period;
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
-    public String getDuration() {
-        return duration;
+    public String getBookName() {
+        return bookName;
     }
 
-    public void setDuration(String duration) {
-        this.duration = duration;
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
     }
 
+    public int getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(int isbn) {
+        this.isbn = isbn;
+    }
+
+    public String getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(String authors) {
+        this.authors = authors;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
 }

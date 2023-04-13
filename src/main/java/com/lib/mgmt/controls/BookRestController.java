@@ -119,7 +119,7 @@ public class BookRestController {
 
     @GetMapping("/searchBook")
     public ResponseEntity<List<Book>> findBookSearchCriteria(
-            @RequestParam(value = "isbn",required = false) String isbn,
+            @RequestParam(value = "isbn",required = false) int isbn,
             @RequestParam(value = "subject",required = false) String subject,
             @RequestParam(value = "bookName",required = false) String bookName) {
         //@RequestParam(value = "isbn",defaultValue = "1617290904") String isbn,

@@ -13,14 +13,21 @@ public class IssueBook {
     private int id;
     @Column(name = "STUDENT_ID")
     private int studentId;
-    @Column(name = "BOOK_ID")
-    private int bookId;
+
+    @Column(name = "STUDENT_NAME")
+    private String studentName;
     @Column(name = "ISSUED_DATE")
     private Date issuedDate;
-    @Column(name = "PERIOD")
-    private int period;
-    @Column(name = "DURATION")
-    private String duration;
+    @Column(name = "SUBJECT")
+    private String subject;
+    @Column(name = "BOOK_NAME")
+    private String bookName;
+    @Column(name = "ISBN")
+    private int isbn;
+    @Column(name = "AUTHORS")
+    private String authors;
+    @Column(name = "PRICE")
+    private int price;
 
     public int getId() {
         return id;
@@ -38,28 +45,12 @@ public class IssueBook {
         this.studentId = studentId;
     }
 
-    public int getBookId() {
-        return bookId;
+    public String getStudentName() {
+        return studentName;
     }
 
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
-    }
-
-    public int getPeriod() {
-        return period;
-    }
-
-    public void setPeriod(int period) {
-        this.period = period;
-    }
-
-    public String getDuration() {
-        return duration;
-    }
-
-    public void setDuration(String duration) {
-        this.duration = duration;
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
     }
 
     public Date getIssuedDate() {
@@ -68,5 +59,45 @@ public class IssueBook {
 
     public void setIssuedDate(Date issuedDate) {
         this.issuedDate = issuedDate;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getBookName() {
+        return bookName;
+    }
+
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
+    }
+
+    public int getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(int isbn) {
+        this.isbn = isbn;
+    }
+
+    public String getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(String authors) {
+        this.authors = authors;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }

@@ -22,4 +22,6 @@ public interface BookRepository extends JpaRepository<Book,Integer> {
     List<Book> findByAvailBooksGreaterThan(int i);
 
     List<Book> findAll(Specification<Book> bookSpecification);
+
+    Optional<Book> findByIsbnAndAvailBooksGreaterThanEqual(int isbn, int availBooks);
 }
