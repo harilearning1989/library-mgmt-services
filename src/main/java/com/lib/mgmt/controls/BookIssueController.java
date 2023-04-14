@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -37,18 +36,9 @@ public class BookIssueController {
         }
     }
 
-    @PostMapping("/issueBook")
-    public ResponseEntity<IssueBook> issueNewBook(
-            @Valid @RequestBody IssueBookDto issueBookDto) {
-        IssueBook _issueBook = bookIssueService.issueNewBook(issueBookDto);
-        if(_issueBook == null)
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        return new ResponseEntity<>(_issueBook, HttpStatus.CREATED);
-    }
-
     @PostMapping("/issueNewBook")
     public ResponseEntity<IssueBook> issueBook(
-            @Valid @RequestBody IssueBookDto issueBookDto) {
+            @RequestBody IssueBookDto issueBookDto) {
         IssueBook _issueBook = bookIssueService.issueNewBook(issueBookDto);
         if(_issueBook == null)
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

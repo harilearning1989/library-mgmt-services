@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.Column;
 import java.util.Date;
 import java.util.List;
 
@@ -53,9 +54,8 @@ public class BookIssueServiceImpl implements BookIssueService{
     public IssueBook issueNewBook(IssueBookDto issueBookDto) {
         Student student = studentRepository.findByStudentId(issueBookDto.getStudentId()).orElseThrow(
                 ()-> new StudentNotFoundException(LibraryConstants.NO_STUDENT_FOUND_WITH_THIS_ID + issueBookDto.getStudentId()));
-        /*Book book = bookRepository.findById(issueBookDto.getBookId()).orElseThrow(
-                ()-> new BookNotFoundException(LibraryConstants.NO_BOOK_FOUND_WITH_THIS_ID + issueBookDto.getBookId()));*/
-        Book book = bookRepository.findByIsbnAndAvailBooksGreaterThanEqual(issueBookDto.getIsbn(),1).orElseThrow(
+        Book book = bookRepository.findByIsbnAndBookNameAndAuthorsAndAvailBooksGreaterThanEqual(
+                issueBookDto.getIsbn(),issueBookDto.getBookName(),issueBookDto.getAuthors(),1).orElseThrow(
                 ()-> new BookNotFoundException(LibraryConstants.NO_BOOK_FOUND_WITH_THIS_ID + issueBookDto.getIsbn()));
         long count = bookIssueRepository.countByIsbnAndStudentId(issueBookDto.getIsbn(),issueBookDto.getStudentId());
         if(count > 2)
@@ -75,10 +75,16 @@ public class BookIssueServiceImpl implements BookIssueService{
     }
 
 
-    private IssueBook convertDtoToModel(IssueBookDto issueBookDto) {
+    private IssueBook convertDtoToModel(IssueBookDto dto) {
         IssueBook issueBook = new IssueBook();
-        issueBook.setStudentId(issueBookDto.getStudentId());
+        issueBook.setStudentId(dto.getStudentId());
         issueBook.setIssuedDate(new Date());
+        issueBook.setStudentName(dto.getStudentName());
+        issueBook.setSubject(dto.getSubject());
+        issueBook.setBookName(dto.getBookName());
+        issueBook.setIsbn(dto.getIsbn());
+        issueBook.setAuthors(dto.getAuthors());
+        issueBook.setPrice(dto.getPrice());
 
         return issueBook;
     }
