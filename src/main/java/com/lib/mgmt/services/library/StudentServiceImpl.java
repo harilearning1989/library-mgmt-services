@@ -4,10 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 import com.lib.mgmt.dtos.StudentDTO;
+import com.lib.mgmt.exceptions.GlobalMessageException;
 import com.lib.mgmt.models.library.Student;
 import com.lib.mgmt.repos.library.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
@@ -16,8 +19,8 @@ import java.util.stream.Collectors;
 
 import static com.lib.mgmt.utils.CommonUtils.isGreaterThan;
 
-@Service
-public class StudentServiceImpl implements StudentService{
+@Service("studentService")
+public class StudentServiceImpl implements StudentService {
 
     private StudentRepository studentRepository;
 
@@ -31,15 +34,15 @@ public class StudentServiceImpl implements StudentService{
         return "Hello World";
     }
 
-    public int getMax(int integer1, int integer2){
-        if(isGreaterThan(integer1,integer2)){
+    public int getMax(int integer1, int integer2) {
+        if (isGreaterThan(integer1, integer2)) {
             return integer1;
         }
         return integer2;
     }
 
-    public int getMin(int integer1, int integer2){
-        return Math.min(integer1,integer2);
+    public int getMin(int integer1, int integer2) {
+        return Math.min(integer1, integer2);
     }
 
     @Override
@@ -55,11 +58,19 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public Student createStudent(Student student) {
+        studentRepository.findByStudentId(student.getStudentId()).ifPresent(s -> {
+                    throw new GlobalMessageException("Student Already Exists", HttpStatus.CONFLICT);
+                }
+        );
+        studentRepository.findByEmail(student.getEmail()).ifPresent(s -> {
+                    throw new GlobalMessageException("Email Already Exists", HttpStatus.CONFLICT);
+                }
+        );
         return studentRepository.save(student);
     }
 
     @Override
-    public Student updateStudent(int studentId,Student student) {
+    public Student updateStudent(int studentId, Student student) {
         Optional<Student> studentOpt = studentRepository.findByStudentId(studentId);
         if (studentOpt.isPresent()) {
             Student _student = studentOpt.get();
@@ -69,7 +80,7 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public Student updateStudentById(int studentId,Student student) {
+    public Student updateStudentById(int studentId, Student student) {
         Optional<Student> tutorialData = studentRepository.findByStudentId(studentId);
         if (tutorialData.isPresent()) {
             return tutorialData.get();
@@ -85,6 +96,12 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public void deleteAll() {
         studentRepository.deleteAll();
+    }
+
+    @Override
+    @Transactional
+    public boolean findByEmail(String email) {
+        return studentRepository.findByEmail(email).isPresent();
     }
 
     @Override
@@ -119,12 +136,13 @@ public class StudentServiceImpl implements StudentService{
         }
         return readStudentDto;
     }
+
     @Override
-    public long countStudents(){
+    public long countStudents() {
         return studentRepository.count();
     }
 
-    public List<Integer> sortIntegers(Collection<Integer> integerCollection){
+    public List<Integer> sortIntegers(Collection<Integer> integerCollection) {
         return integerCollection.stream().sorted().collect(Collectors.toList());
     }
 

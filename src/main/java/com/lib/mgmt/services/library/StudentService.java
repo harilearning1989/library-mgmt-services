@@ -28,4 +28,6 @@ public interface StudentService {
     long countStudents();
 
     String helloWorld();
+
+    boolean findByEmail(String email);
 }

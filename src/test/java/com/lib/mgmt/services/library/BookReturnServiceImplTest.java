@@ -1,8 +1,7 @@
 package com.lib.mgmt.services.library;
 
 import com.lib.mgmt.data.ModelData;
-import com.lib.mgmt.exceptions.BookNotFoundException;
-import com.lib.mgmt.exceptions.StudentNotFoundException;
+import com.lib.mgmt.exceptions.GlobalMessageException;
 import com.lib.mgmt.models.library.Book;
 import com.lib.mgmt.models.library.ReturnBook;
 import com.lib.mgmt.models.library.Student;
@@ -76,7 +75,7 @@ public class BookReturnServiceImplTest {
 
     }
 
-    @Test(expected = StudentNotFoundException.class)
+    @Test(expected = GlobalMessageException.class)
     public void returnOldBookStdExceptionTest(){
         Student response = new Student();
         response.setId(12);
@@ -98,7 +97,7 @@ public class BookReturnServiceImplTest {
 
     }
 
-    @Test(expected = BookNotFoundException.class)
+    @Test(expected = GlobalMessageException.class)
     public void returnOldBookExceptionTest(){
         Student response = new Student();
         response.setId(12);

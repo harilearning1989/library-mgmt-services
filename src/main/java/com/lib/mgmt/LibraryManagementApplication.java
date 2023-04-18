@@ -13,6 +13,8 @@ public class LibraryManagementApplication implements CommandLineRunner {
 	//spring-security/spring-boot-security-jwt-auth-api/
 	//https://github.com/roytuts/spring-security/tree/master/spring-boot-security-jwt-auth-api
 	//https://github.com/roytuts/angular/tree/master/angular-spring-boot-jwt-auth
+	//Error messages
+	//https://o7planning.org/11655/create-a-user-registration-application-with-spring-boot-spring-form-validation
 	public static void main(String[] args) {
 		SpringApplication app = new SpringApplication(LibraryManagementApplication.class);
 		app.setBannerMode(Banner.Mode.OFF);

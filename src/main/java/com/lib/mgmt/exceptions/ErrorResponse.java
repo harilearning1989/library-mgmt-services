@@ -2,6 +2,8 @@ package com.lib.mgmt.exceptions;
 
 public class ErrorResponse {
 
+    private String message;
+    private int status;
     public ErrorResponse() {
         super();
     }
@@ -10,8 +12,6 @@ public class ErrorResponse {
         this.status = status;
         this.message = message;
     }
-    private String message;
-    private int status;
 
     public String getMessage() {
         return message;
@@ -19,6 +19,14 @@ public class ErrorResponse {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     @Override

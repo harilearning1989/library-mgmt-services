@@ -30,31 +30,14 @@ public class GlobalExceptionHandler {
         return entity;
     }
 
-    @ExceptionHandler(StudentNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(GlobalMessageException.class)
     @ResponseBody
-    public ResponseEntity<Object> studentNotFoundException(StudentNotFoundException exception, WebRequest webRequest) {
+    public ResponseEntity<Object> studentNotFoundException(
+            GlobalMessageException exception, WebRequest webRequest) {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setMessage(exception.getMessage());
-        return new ResponseEntity<>(errorResponse,HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(BookNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ResponseBody
-    public ResponseEntity<Object> bookNotFoundException(BookNotFoundException exception, WebRequest webRequest) {
-        ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setMessage(exception.getMessage());
-        return new ResponseEntity<>(errorResponse,HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(BookAlreadyIssuedException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ResponseBody
-    public ResponseEntity<Object> bookAlreadyIssuedException(BookAlreadyIssuedException exception, WebRequest webRequest) {
-        ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setMessage(exception.getMessage());
-        return new ResponseEntity<>(errorResponse,HttpStatus.NOT_FOUND);
+        errorResponse.setStatus(exception.getStatus().value());
+        return new ResponseEntity<>(errorResponse,exception.getStatus());
     }
 
 }
