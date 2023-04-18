@@ -13,6 +13,7 @@ import java.util.List;
 public interface BookIssueRepository extends JpaRepository<IssueBook, Integer> {
     //List<IssueBook> findByBookIdAndStudentId(int bookId, int studentId);
     long countByIsbnAndStudentId(int isbn, int studentId);
+    long countByIsbnAndStudentIdAndBookNameAndSubject(int isbn, int studentId,String bookName,String subject);
 
     //int findIssuedBookCountByBookIdAndStudentId(int bookId, int studentId);
 

@@ -6,8 +6,23 @@ CREATE TABLE LIBRARY_MGMT.STUDENT (
     GENDER varchar(10),
     MOBILE long,
     CATEGORY varchar(10),
+    EMAIL varchar(255),
     PRIMARY KEY (ID,STUDENT_ID)
 );
+
+ALTER TABLE library_mgmt.STUDENT ADD CONSTRAINT STUDENT_ID_UC UNIQUE (STUDENT_ID);
+ALTER TABLE library_mgmt.STUDENT ADD CONSTRAINT email_uc UNIQUE (email);
+
+update library_mgmt.STUDENT set email = concat(replace(STUDENT_NAME,' ', '.'),'@gmail.com') where email is null;
+update library_mgmt.STUDENT set email = replace(STUDENT_NAME,' ', '.') where email is not null;
+update library_mgmt.STUDENT set email = concat(email, '@gmail.com');
+
+DELETE STD1 FROM library_mgmt.STUDENT AS STD1
+INNER JOIN library_mgmt.STUDENT AS STD2
+WHERE STD1.id < STD2.id AND STD1.STUDENT_NAME = STD2.STUDENT_NAME;
+
+UPDATE a SET a.column1 = b.column2 FROM myTable a
+INNER JOIN myTable b on a.myID = b.myID
 
 CREATE TABLE LIBRARY_MGMT.BOOKS (
     ID int NOT NULL AUTO_INCREMENT,

@@ -8,9 +8,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static java.util.Collections.reverseOrder;
+import static java.util.Comparator.comparing;
+import static java.util.stream.Collectors.toList;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -38,8 +44,9 @@ public class StudentRestController {
             }else{
                 studentList = studentList
                         .stream()
+                        .sorted(comparing(Student::getId, reverseOrder()))
                         .limit(1000)
-                        .collect(Collectors.toList());
+                        .collect(toList());
                 return new ResponseEntity<>(studentList, HttpStatus.OK);
             }
         } catch (Exception e) {
@@ -72,9 +79,9 @@ public class StudentRestController {
         }
     }
 
-    @PostMapping("/create")
+    @PostMapping("/saveStudent")
     public ResponseEntity<Student> createStudent(
-            @RequestBody Student student) {
+            @Valid @RequestBody Student student) {
         Student _student = studentService.createStudent(student);
         if(_student == null)
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -142,7 +149,7 @@ public class StudentRestController {
                 studentList = studentList
                         .stream()
                         .limit(1000)
-                        .collect(Collectors.toList());
+                        .collect(toList());
                 return new ResponseEntity<>(studentList, HttpStatus.OK);
             }
         } catch (Exception e) {

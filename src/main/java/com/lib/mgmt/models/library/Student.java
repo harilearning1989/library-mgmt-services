@@ -1,6 +1,14 @@
 package com.lib.mgmt.models.library;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.lib.mgmt.validators.UniqueEmail;
+import com.lib.mgmt.validators.UniqueStudentId;
+import org.hibernate.validator.constraints.Range;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 @Entity
 @Table(name = "STUDENT")
@@ -10,18 +18,34 @@ public class Student {
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "STUDENT_ID")
+    @NotNull(message= "Student Id may not be empty")
+    @Range(min = 90000)
+    @UniqueStudentId
+    @Column(name = "STUDENT_ID", nullable = false)
     private int studentId;
     @Column(name = "STUDENT_NAME")
     private String studentName;
+    @NotEmpty
+    @UniqueEmail
+    @Column(name = "EMAIL", nullable = false)
+    private String email;
     @Column(name = "FATHER_NAME")
     private String fatherName;
     @Column(name = "GENDER")
     private String gender;
+    @JsonIgnore
     @Column(name = "MOBILE")
     private long mobile;
     @Column(name = "CATEGORY")
     private String category;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public int getId() {
         return id;

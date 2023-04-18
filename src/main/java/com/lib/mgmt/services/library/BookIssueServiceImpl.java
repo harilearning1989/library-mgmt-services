@@ -52,12 +52,13 @@ public class BookIssueServiceImpl implements BookIssueService{
     @Override
     @Transactional
     public IssueBook issueNewBook(IssueBookDto issueBookDto) {
-        Student student = studentRepository.findByStudentId(issueBookDto.getStudentId()).orElseThrow(
+        Student student = studentRepository.findByStudentIdAndStudentName(issueBookDto.getStudentId(),issueBookDto.getStudentName()).orElseThrow(
                 ()-> new StudentNotFoundException(LibraryConstants.NO_STUDENT_FOUND_WITH_THIS_ID + issueBookDto.getStudentId()));
         Book book = bookRepository.findByIsbnAndBookNameAndAuthorsAndAvailBooksGreaterThanEqual(
                 issueBookDto.getIsbn(),issueBookDto.getBookName(),issueBookDto.getAuthors(),1).orElseThrow(
                 ()-> new BookNotFoundException(LibraryConstants.NO_BOOK_FOUND_WITH_THIS_ID + issueBookDto.getIsbn()));
-        long count = bookIssueRepository.countByIsbnAndStudentId(issueBookDto.getIsbn(),issueBookDto.getStudentId());
+        long count = bookIssueRepository.countByIsbnAndStudentIdAndBookNameAndSubject
+                (issueBookDto.getIsbn(),issueBookDto.getStudentId(),issueBookDto.getBookName(),issueBookDto.getSubject());
         if(count > 2)
             throw new BookAlreadyIssuedException(String.format(LibraryConstants.BOOK_ALREADY_ISSUED,student.getStudentName(),count));
         IssueBook issueBook = convertDtoToModel(issueBookDto);
