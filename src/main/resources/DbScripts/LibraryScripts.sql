@@ -194,3 +194,13 @@ PRIMARY KEY (UID)
 );
 
 INSERT INTO USERS(USERNAME,PASSWORD,USER_TYPE) VALUES (“admin”,”admin”,1)
+
+
+CREATE TABLE `contacts` (
+                            `id` int(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+                            `name` varchar(30) DEFAULT NULL,
+                            `email` varchar(50) DEFAULT NULL,
+                            `phone` varchar(20) DEFAULT NULL,
+                            `message` text,
+                            `created_at` datetime NOT NULL
+)
