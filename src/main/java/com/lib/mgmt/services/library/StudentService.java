@@ -13,7 +13,7 @@ public interface StudentService {
 
     Optional<Student> findByStudentId(int studentId);
 
-    Student createStudent(Student student);
+    Student createStudent(StudentDTO dto);
 
     Student updateStudent(int studentId,Student student);
 

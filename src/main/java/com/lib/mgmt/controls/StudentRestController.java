@@ -81,8 +81,8 @@ public class StudentRestController {
 
     @PostMapping("/saveStudent")
     public ResponseEntity<Student> createStudent(
-            @Valid @RequestBody Student student) {
-        Student _student = studentService.createStudent(student);
+            @Valid @RequestBody StudentDTO dto) {
+        Student _student = studentService.createStudent(dto);
         if(_student == null)
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         return new ResponseEntity<>(_student, HttpStatus.CREATED);

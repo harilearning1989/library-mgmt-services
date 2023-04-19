@@ -199,7 +199,7 @@ public class StudentRestControllerTest {
 
     @Test
     public void createStudent() {
-        Student request = new Student();
+        StudentDTO request = new StudentDTO();
         request.setId(12);
         request.setStudentId(76127);
         request.setStudentName("Hari");
@@ -224,7 +224,7 @@ public class StudentRestControllerTest {
 
     @Test
     public void createEmployeeNullTest(){
-        Student request = new Student();
+        StudentDTO request = new StudentDTO();
         request.setId(12);
         request.setStudentId(76127);
         request.setStudentName("Hari");
@@ -356,7 +356,7 @@ public class StudentRestControllerTest {
     private List<StudentDTO> getStudentDtoData() {
         List<StudentDTO> dtos = new ArrayList<>();
         StudentDTO dto = new StudentDTO();
-        dto.setEmpId(76127);
+        dto.setStudentId(76127);
 
         dtos.add(dto);
 

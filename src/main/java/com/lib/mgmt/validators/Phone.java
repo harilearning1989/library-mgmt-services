@@ -16,7 +16,7 @@ import javax.validation.Payload;
 public @interface Phone {
 
 
-    String message() default "{Phone}";
+    String message() default "Phone number is not valid";
 
     Class<?>[] groups() default {};
 

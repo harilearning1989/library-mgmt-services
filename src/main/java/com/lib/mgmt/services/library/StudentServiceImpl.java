@@ -57,16 +57,28 @@ public class StudentServiceImpl implements StudentService {
 
 
     @Override
-    public Student createStudent(Student student) {
-        studentRepository.findByStudentId(student.getStudentId()).ifPresent(s -> {
+    public Student createStudent(StudentDTO dto) {
+        studentRepository.findByStudentId(dto.getStudentId()).ifPresent(s -> {
                     throw new GlobalMessageException("Student Already Exists", HttpStatus.CONFLICT);
                 }
         );
-        studentRepository.findByEmail(student.getEmail()).ifPresent(s -> {
+        studentRepository.findByEmail(dto.getEmail()).ifPresent(s -> {
                     throw new GlobalMessageException("Email Already Exists", HttpStatus.CONFLICT);
                 }
         );
+        Student student = convertDtoToModel(dto);
         return studentRepository.save(student);
+    }
+
+    private Student convertDtoToModel(StudentDTO dto) {
+        Student student = new Student();
+        student.setStudentId(dto.getStudentId());
+        student.setStudentName(dto.getStudentName());
+        student.setEmail(dto.getEmail());
+        student.setFatherName(dto.getFatherName());
+        student.setGender(dto.getGender());
+        student.setCategory(dto.getGender());
+        return student;
     }
 
     @Override
@@ -113,8 +125,8 @@ public class StudentServiceImpl implements StudentService {
     private List<Student> convertToStudent(List<StudentDTO> studentDTOS) {
         return studentDTOS.stream().map(m -> {
             Student student = new Student();
-            student.setStudentId(m.getEmpId());
-            student.setStudentName(m.getEmpName());
+            student.setStudentId(m.getStudentId());
+            student.setStudentName(m.getStudentName());
             student.setFatherName(m.getFatherName());
             student.setCategory(m.getCategory());
             student.setGender(m.getGender());

@@ -126,7 +126,7 @@ public class StudentRestControllerMvcTest {
         student.setGender("Male");
         student.setMobile(9494968081L);
         student.setCategory("MCA");
-        given(studentService.createStudent(any(Student.class)))
+        given(studentService.createStudent(any(StudentDTO.class)))
                 .willReturn(student);
 
         ResultActions response = mockMvc.perform(post("/student/create")
@@ -149,7 +149,7 @@ public class StudentRestControllerMvcTest {
         student.setGender("Male");
         student.setMobile(9494968081L);
         student.setCategory("MCA");
-        given(studentService.createStudent(any(Student.class)))
+        given(studentService.createStudent(any(StudentDTO.class)))
                 .willReturn(null);
 
         ResultActions response = mockMvc.perform(post("/student/create")
@@ -321,7 +321,7 @@ public class StudentRestControllerMvcTest {
         List<StudentDTO> studentDTOS = new ArrayList<>();
 
         StudentDTO dto = new StudentDTO();
-        dto.setEmpName("Hari");
+        dto.setStudentName("Hari");
 
         studentDTOS.add(dto);
 
