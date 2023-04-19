@@ -1,7 +1,5 @@
 package com.lib.mgmt.dtos;
 
-import com.lib.mgmt.validators.Phone;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
@@ -31,7 +29,6 @@ public class Request {
     @Email
     @Size(max = 20)
     private String email;
-    @Phone
     private String phone;
     private List<String> roles;
 

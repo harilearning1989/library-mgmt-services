@@ -2,7 +2,6 @@ package com.lib.mgmt.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.lib.mgmt.validators.Phone;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.Email;
@@ -26,7 +25,6 @@ public class StudentDTO {
     private String fatherName;
     private String gender;
     @JsonIgnore
-    @Phone
     private long mobile;
     private String category;
 
