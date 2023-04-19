@@ -2,6 +2,7 @@ package com.lib.mgmt.controls;
 
 import com.lib.mgmt.dtos.StudentDTO;
 import com.lib.mgmt.models.library.Student;
+import com.lib.mgmt.response.LibraryResponse;
 import com.lib.mgmt.services.library.StudentServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -267,14 +268,14 @@ public class StudentRestControllerTest {
     @Test
     public void deleteStudentTest() {
         doNothing().when(studentService).deleteByStudentId(10);
-        ResponseEntity<String> responseEntity = studentRestController.deleteStudent(10);
+        ResponseEntity<LibraryResponse> responseEntity = studentRestController.deleteStudent(10);
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
     }
 
     @Test
     public void deleteStudentExceptionTest() {
         doThrow(new NullPointerException()).when(studentService).deleteByStudentId(10);
-        ResponseEntity<String> responseEntity = studentRestController.deleteStudent(10);
+        ResponseEntity<LibraryResponse> responseEntity = studentRestController.deleteStudent(10);
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(500);
     }
 

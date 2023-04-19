@@ -2,6 +2,7 @@ package com.lib.mgmt.controls;
 
 import com.lib.mgmt.dtos.StudentDTO;
 import com.lib.mgmt.models.library.Student;
+import com.lib.mgmt.response.LibraryResponse;
 import com.lib.mgmt.services.library.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -119,12 +120,18 @@ public class StudentRestController {
     }
 
     @DeleteMapping("/delete/{studentId}")
-    public ResponseEntity<String> deleteStudent(@PathVariable("studentId") int studentId) {
+    public ResponseEntity<LibraryResponse> deleteStudent(@PathVariable("studentId") int studentId) {
         try {
             studentService.deleteByStudentId(studentId);
-            return new ResponseEntity<String>("Student deleted successfully!.", HttpStatus.OK);
+            LibraryResponse libraryResponse = new LibraryResponse();
+            libraryResponse.setStatus(HttpStatus.OK.value());
+            libraryResponse.setMessage("Student deleted successfully!.");
+            return new ResponseEntity<>(libraryResponse, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            LibraryResponse libraryResponse = new LibraryResponse();
+            libraryResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            libraryResponse.setMessage(e.getMessage());
+            return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

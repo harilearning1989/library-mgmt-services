@@ -2,6 +2,8 @@ package com.lib.mgmt.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.lib.mgmt.validators.PhoneNumber;
+import com.lib.mgmt.validators.ValidEmail;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.Email;
@@ -19,11 +21,13 @@ public class StudentDTO {
     private String studentName;
     @NotEmpty
     @NotNull(message= "Email Id may not be empty")
-    @Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}",
-            flags = Pattern.Flag.CASE_INSENSITIVE)
+    //@Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}",
+      //      flags = Pattern.Flag.CASE_INSENSITIVE)
+    @ValidEmail
     private String email;
     private String fatherName;
     private String gender;
+    @PhoneNumber(message = "This phone number is not valid")
     @JsonIgnore
     private long mobile;
     private String category;

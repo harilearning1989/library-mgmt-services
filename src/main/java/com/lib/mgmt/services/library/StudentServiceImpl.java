@@ -101,6 +101,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    @Transactional
     public void deleteByStudentId(int studentId) {
         studentRepository.deleteByStudentId(studentId);
     }
