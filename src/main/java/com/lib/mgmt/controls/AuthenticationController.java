@@ -82,7 +82,7 @@ public class AuthenticationController {
             userAuthService.saveUser(request);
         }
         LibraryResponse libraryResponse = new LibraryResponse();
-        libraryResponse.setStatus(HttpStatus.CONFLICT.value());
+        libraryResponse.setStatus(HttpStatus.OK.value());
         libraryResponse.setMessage("User "+request.getUsername()+" successfully registered");
         return new ResponseEntity<>(libraryResponse, HttpStatus.OK);
     }
