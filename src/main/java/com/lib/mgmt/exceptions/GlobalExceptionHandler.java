@@ -2,6 +2,7 @@ package com.lib.mgmt.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.firewall.RequestRejectedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -38,6 +39,15 @@ public class GlobalExceptionHandler {
         errorResponse.setMessage(exception.getMessage());
         errorResponse.setStatus(exception.getStatus().value());
         return new ResponseEntity<>(errorResponse,exception.getStatus());
+    }
+
+    @ExceptionHandler(RequestRejectedException.class)
+    @ResponseBody
+    public ResponseEntity<Object> requestRejectionException(RequestRejectedException ex) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setMessage(ex.getMessage());
+        errorResponse.setStatus(HttpStatus.BAD_REQUEST.value());
+        return new ResponseEntity<>(errorResponse,HttpStatus.BAD_REQUEST);
     }
 
 }

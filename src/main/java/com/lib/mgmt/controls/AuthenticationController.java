@@ -3,8 +3,10 @@ package com.lib.mgmt.controls;
 import com.lib.mgmt.dtos.Request;
 import com.lib.mgmt.dtos.Response;
 import com.lib.mgmt.dtos.auth.LoginRequest;
+import com.lib.mgmt.exceptions.GlobalMessageException;
 import com.lib.mgmt.exceptions.auth.DisabledUserException;
 import com.lib.mgmt.exceptions.auth.InvalidUserCredentialsException;
+import com.lib.mgmt.response.LibraryResponse;
 import com.lib.mgmt.services.auth.UserAuthService;
 import com.lib.mgmt.utils.auth.JwtUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -71,15 +73,18 @@ public class AuthenticationController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
     @PostMapping("/register")
-    public ResponseEntity<String> register(
+    public ResponseEntity<LibraryResponse> register(
             @Valid @RequestBody Request request) {
         String username = userAuthService.findByUserName(request.getUsername());
         if(StringUtils.isNotEmpty(username)){
-            return new ResponseEntity<>("User Already Exists", HttpStatus.CONFLICT);
+            throw new GlobalMessageException("User Already Exists", HttpStatus.CONFLICT);
         }else{
             userAuthService.saveUser(request);
         }
-        return new ResponseEntity<>("User "+request.getUsername()+" successfully registered", HttpStatus.OK);
+        LibraryResponse libraryResponse = new LibraryResponse();
+        libraryResponse.setStatus(HttpStatus.CONFLICT.value());
+        libraryResponse.setMessage("User "+request.getUsername()+" successfully registered");
+        return new ResponseEntity<>(libraryResponse, HttpStatus.OK);
     }
 
 }
