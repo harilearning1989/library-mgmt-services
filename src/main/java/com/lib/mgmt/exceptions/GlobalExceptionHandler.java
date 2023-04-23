@@ -1,5 +1,6 @@
 package com.lib.mgmt.exceptions;
 
+import com.lib.mgmt.exceptions.auth.InvalidUserCredentialsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.web.firewall.RequestRejectedException;
@@ -48,6 +49,14 @@ public class GlobalExceptionHandler {
         errorResponse.setMessage(ex.getMessage());
         errorResponse.setStatus(HttpStatus.BAD_REQUEST.value());
         return new ResponseEntity<>(errorResponse,HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(InvalidUserCredentialsException.class)
+    @ResponseBody
+    public ResponseEntity<Object> invalidUserCredentialsException(InvalidUserCredentialsException ex) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setMessage(ex.getMessage());
+        errorResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
+        return new ResponseEntity<>(errorResponse,HttpStatus.UNAUTHORIZED);
     }
 
 }
