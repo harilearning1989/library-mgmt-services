@@ -16,13 +16,11 @@ public class ModelData {
         Book book = new Book();
         book.setId(12);
         book.setBookName("Java");
-        book.setIsbn("1234");
         bookList.add(book);
 
         book = new Book();
         book.setId(12);
         book.setBookName("Java");
-        book.setIsbn("1234");
         bookList.add(book);
 
         return bookList;
@@ -30,21 +28,18 @@ public class ModelData {
     public static List<IssueBook> getIssueBookList() {
         List<IssueBook> issueBookList = new ArrayList<>();
         IssueBook book = new IssueBook();
-        book.setBookId(1234);
         book.setId(12);
         book.setStudentId(76127);
 
         issueBookList.add(book);
 
         book = new IssueBook();
-        book.setBookId(1235);
         book.setId(13);
         book.setStudentId(76128);
 
         issueBookList.add(book);
 
         book = new IssueBook();
-        book.setBookId(1236);
         book.setId(14);
         book.setStudentId(76129);
 

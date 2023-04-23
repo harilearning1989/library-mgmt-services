@@ -10,6 +10,15 @@ public class IssueBookDto {
     private int isbn;
     private String authors;
     private int price;
+    private String issuedDate;
+
+    public String getIssuedDate() {
+        return issuedDate;
+    }
+
+    public void setIssuedDate(String issuedDate) {
+        this.issuedDate = issuedDate;
+    }
 
     public int getId() {
         return id;

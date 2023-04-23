@@ -3,6 +3,7 @@ package com.lib.mgmt.exceptions;
 import com.lib.mgmt.exceptions.auth.InvalidUserCredentialsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.web.firewall.RequestRejectedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -57,6 +58,15 @@ public class GlobalExceptionHandler {
         errorResponse.setMessage(ex.getMessage());
         errorResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
         return new ResponseEntity<>(errorResponse,HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseBody
+    public ResponseEntity<Object> invalidUserCredentialsException(HttpMessageNotReadableException ex) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setMessage(ex.getMessage());
+        errorResponse.setStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE.value());
+        return new ResponseEntity<>(errorResponse,HttpStatus.UNSUPPORTED_MEDIA_TYPE);
     }
 
 }

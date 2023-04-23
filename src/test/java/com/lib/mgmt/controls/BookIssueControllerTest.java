@@ -44,9 +44,9 @@ public class BookIssueControllerTest {
     public void findAllIssuedBooksTest() {
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-        List<IssueBook> issueBookList = ModelData.getIssueBookList();
+        List<IssueBookDto> issueBookList = null;//ModelData.getIssueBookList();
         when(bookIssueService.findAllIssuedBooks()).thenReturn(issueBookList);
-        ResponseEntity<List<IssueBook>> responseEntity = bookIssueController.findAllIssuedBooks();
+        ResponseEntity<List<IssueBookDto>> responseEntity = bookIssueController.findAllIssuedBooks();
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
         assertThat(responseEntity.getBody().size()).isEqualTo(issueBookList.size());
     }
@@ -56,7 +56,7 @@ public class BookIssueControllerTest {
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
         when(bookIssueService.findAllIssuedBooks()).thenReturn(new ArrayList<>());
-        ResponseEntity<List<IssueBook>> responseEntity = bookIssueController.findAllIssuedBooks();
+        ResponseEntity<List<IssueBookDto>> responseEntity = bookIssueController.findAllIssuedBooks();
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(204);
     }
 

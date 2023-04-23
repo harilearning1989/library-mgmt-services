@@ -15,19 +15,19 @@ public class RestExceptionHandler {
     @ExceptionHandler(value = {IOException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse badRequest(Exception ex) {
-        return new ErrorResponse(400, "Bad Request");
+        return new ErrorResponse(400, ex.getMessage());
     }
 
     @ExceptionHandler(value = {Exception.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse unKnownException(Exception ex) {
-        return new ErrorResponse(404, "Employee Not Found");
+        return new ErrorResponse(404, ex.getMessage());
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse integrityViolation(Exception ex) {
-        return new ErrorResponse(404, "Integrity Constraint Issue");
+        return new ErrorResponse(404, ex.getMessage());
     }
 
     @ExceptionHandler(value = {ResourceNotFoundException.class})

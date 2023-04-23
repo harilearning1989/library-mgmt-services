@@ -3,13 +3,17 @@ package com.lib.mgmt.controls;
 import com.lib.mgmt.dtos.IssueBookDto;
 import com.lib.mgmt.dtos.IssuedBookStudentDto;
 import com.lib.mgmt.models.library.IssueBook;
+import com.lib.mgmt.response.LibraryResponse;
 import com.lib.mgmt.services.library.BookIssueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -24,9 +28,16 @@ public class BookIssueController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<IssueBook>> findAllIssuedBooks() {
+    public ResponseEntity<List<IssueBookDto>> findAllIssuedBooks() {
         try {
-            List<IssueBook> issueBookList = bookIssueService.findAllIssuedBooks();
+            List<IssueBookDto> issueBookList = bookIssueService.findAllIssuedBooks();
+            /*Optional.ofNullable(issueBookList)
+                    .orElseGet(Collections::emptyList)
+                    .stream()
+                    .filter(Objects::nonNull)
+                    .forEach(e -> {
+                        System.out.println("Controller::"+e.getIssuedDate());
+                    });*/
             if (issueBookList.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
@@ -37,12 +48,15 @@ public class BookIssueController {
     }
 
     @PostMapping("/issueNewBook")
-    public ResponseEntity<IssueBook> issueBook(
+    public ResponseEntity<LibraryResponse> issueBook(
             @RequestBody IssueBookDto issueBookDto) {
         IssueBook _issueBook = bookIssueService.issueNewBook(issueBookDto);
         if(_issueBook == null)
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        return new ResponseEntity<>(_issueBook, HttpStatus.CREATED);
+        LibraryResponse libraryResponse = new LibraryResponse();
+        libraryResponse.setStatus(HttpStatus.CREATED.value());
+        libraryResponse.setMessage("Book Name: "+_issueBook.getBookName()+" successfully Issued");
+        return new ResponseEntity<>(libraryResponse, HttpStatus.CREATED);
     }
     //Api for How many books issued for the Student
     @GetMapping("/issuedBooksForStudent/{studentId}")

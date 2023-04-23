@@ -10,13 +10,14 @@ import com.lib.mgmt.models.library.Student;
 import com.lib.mgmt.repos.library.BookIssueRepository;
 import com.lib.mgmt.repos.library.BookRepository;
 import com.lib.mgmt.repos.library.StudentRepository;
+import com.lib.mgmt.utils.LibraryUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class BookIssueServiceImpl implements BookIssueService{
@@ -43,8 +44,32 @@ public class BookIssueServiceImpl implements BookIssueService{
     }
 
     @Override
-    public List<IssueBook> findAllIssuedBooks() {
-        return bookIssueRepository.findAll();
+    public List<IssueBookDto> findAllIssuedBooks() {
+        List<IssueBook> issueBookList = bookIssueRepository.findAll();
+        List<IssueBookDto> dtoList = Optional.ofNullable(issueBookList)
+                .orElseGet(Collections::emptyList)
+                .stream()
+                .filter(Objects::nonNull)
+                .map(model -> {
+                    IssueBookDto dto = modelTODto(model);
+                    return dto;
+                })
+                .collect(Collectors.toList());
+        return dtoList;
+    }
+
+    private IssueBookDto modelTODto(IssueBook model) {
+        IssueBookDto dto = new IssueBookDto();
+        dto.setId(model.getId());
+        dto.setStudentId(model.getStudentId());
+        dto.setAuthors(model.getAuthors());
+        dto.setIsbn(model.getIsbn());
+        dto.setBookName(model.getBookName());
+        dto.setSubject(model.getSubject());
+        dto.setPrice(model.getPrice());
+        dto.setStudentName(model.getStudentName());
+        dto.setIssuedDate(LibraryUtils.dateToString(model.getIssuedDate()));
+        return dto;
     }
 
     @Override
@@ -54,7 +79,7 @@ public class BookIssueServiceImpl implements BookIssueService{
                 issueBookDto.getStudentId(),issueBookDto.getStudentName()).orElseThrow(
                 ()-> new GlobalMessageException(
                         LibraryConstants.NO_STUDENT_FOUND_WITH_THIS_ID + issueBookDto.getStudentId(), HttpStatus.NO_CONTENT));
-        Book book = bookRepository.findByIsbnAndBookNameAndAuthorsAndAvailBooksGreaterThanEqual(
+        Book book = bookRepository.findFirstByIsbnAndBookNameAndAuthorsAndAvailBooksGreaterThanEqual(
                 issueBookDto.getIsbn(),issueBookDto.getBookName(),issueBookDto.getAuthors(),1).orElseThrow(
                 ()-> new GlobalMessageException(
                         LibraryConstants.NO_BOOK_FOUND_WITH_THIS_ID + issueBookDto.getIsbn(), HttpStatus.NO_CONTENT));

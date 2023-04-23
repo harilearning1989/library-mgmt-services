@@ -7,7 +7,7 @@ import com.lib.mgmt.models.library.IssueBook;
 import java.util.List;
 
 public interface BookIssueService {
-    List<IssueBook> findAllIssuedBooks();
+    List<IssueBookDto> findAllIssuedBooks();
 
     List<IssuedBookStudentDto> findIssuedBooksForStudent(int studentId);
 

@@ -77,4 +77,9 @@ public class LibraryUtils {
                 }).collect(toList());
     }
 
+    public static String dateToString(Date issuedDate) {
+        //DateFormat dateFormat = new SimpleDateFormat("dd:mm:YYYY hh:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("dd:mm:YYYY hh:mm:ss aa");
+        return dateFormat.format(issuedDate);
+    }
 }
