@@ -29,10 +29,32 @@ public class AuthSecurityConfig extends WebSecurityConfigurerAdapter {
     private JwtAuthenticationFilter jwtAuthenticationFilter;
     private ApiAuthenticationEntryPoint authenticationEntryPoint;
 
+    private static final String[] AUTH_WHITELIST = {
+            "/login",
+            "/register",
+            /*"/v2/api-docs",
+            "/configuration/ui",
+            "/swagger-resources/**",
+            "/configuration/security",*/
+            // -- Swagger UI v2
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**",
+            // -- Swagger UI v3 (OpenAPI)
+            "/v3/api-docs/**",
+            "/swagger-ui/**"
+            // other public endpoints of your API may be appended to this array
+    };
+
     @Autowired
     public void setJwtAuthenticationFilter(JwtAuthenticationFilter jwtAuthenticationFilter) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
+
     @Autowired
     public void setAuthenticationEntryPoint(ApiAuthenticationEntryPoint authenticationEntryPoint) {
         this.authenticationEntryPoint = authenticationEntryPoint;
@@ -40,7 +62,9 @@ public class AuthSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/login", "/register","/swagger-ui/index.html");
+        web
+                .ignoring()
+                .antMatchers(AUTH_WHITELIST);
     }
 
     @Autowired

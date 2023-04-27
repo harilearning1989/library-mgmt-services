@@ -42,22 +42,23 @@ public class ContactServiceImpl implements ContactService {
     }
 
     private Contact dtoToModel(ContactDto dto) {
-        Contact model = new Contact();
-        model.setName(dto.getName());
-        model.setEmail(dto.getEmail());
-        model.setMobile(dto.getMobile());
-        model.setMessage(dto.getMessage());
-        model.setCreatedAt(new Date());
-        return model;
+        return Contact
+                .builder()
+                .name(dto.getName())
+                .email(dto.getEmail())
+                .mobile(dto.getMobile())
+                .message(dto.getMessage())
+                .build();
     }
 
     private ContactDto modelToDto(Contact m) {
-        ContactDto dto = new ContactDto();
-        dto.setId(m.getId());
-        dto.setName(m.getName());
-        dto.setEmail(m.getEmail());
-        dto.setMobile(m.getMobile());
-        dto.setMessage(m.getMessage());
-        return dto;
+        return ContactDto
+                .builder()
+                .id(m.getId())
+                .name(m.getName())
+                .email(m.getEmail())
+                .mobile(m.getMobile())
+                .message(m.getMessage())
+                .build();
     }
 }
