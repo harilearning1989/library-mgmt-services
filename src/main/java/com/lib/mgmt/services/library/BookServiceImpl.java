@@ -66,15 +66,15 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book createBook(Book book) {
-            book.setIsbn(book.getIsbn());
-        if(StringUtils.isNotEmpty(book.getBookName())){
+        book.setIsbn(book.getIsbn());
+        if (StringUtils.isNotEmpty(book.getBookName())) {
             book.setBookName(book.getBookName().trim());
         }
-        if(StringUtils.isNotEmpty(book.getSubject())){
+        if (StringUtils.isNotEmpty(book.getSubject())) {
             book.setSubject(book.getSubject().trim());
         }
-        List<Book> listBook = findBookSearchCriteria(book.getIsbn(),book.getSubject(),book.getBookName());
-        if(listBook.isEmpty() || listBook.size() == 0){
+        List<Book> listBook = findBookSearchCriteria(book.getIsbn(), book.getSubject(), book.getBookName());
+        if (listBook.isEmpty() || listBook.size() == 0) {
             book.setCreatedDate(new Date());
             return bookRepository.save(book);
         }
@@ -161,47 +161,10 @@ public class BookServiceImpl implements BookService {
             readBookDto = objectMapper.readValue(fixture,
                     objectMapper.getTypeFactory().constructCollectionType(List.class, BooksDTO.class));
 
-            List<Book> listBook = readBookDto.stream().map(m -> {
-                Book book = new Book();
-
-                book.setSubject(LibraryUtils.getSubString(m.getTitle(), 20));
-                book.setBookName(m.getTitle());
-                book.setBookQty(LibraryUtils.getRandomNumber(100, 1000));
-                if (StringUtils.isNotEmpty(m.getIsbn())) {
-                    if(m.getIsbn().length() > 8){
-                        String isbn = m.getIsbn().substring(0,8);
-                        book.setIsbn(Integer.parseInt(isbn.replaceAll("[^0-9]", "")));
-                    }
-                } else {
-                    book.setIsbn(LibraryUtils.getRandomNumber(1417290084, 1617290084));
-                }
-                if (m.getPublishedDate() != null && StringUtils.isNotEmpty(m.getPublishedDate().getDate().strip())) {
-                    book.setPublishedDate(m.getPublishedDate().getDate());//2009-04-01T00:00:00.000-0700
-                } else {
-                    book.setPublishedDate(new Date().toString());
-                }
-                if (StringUtils.isNotEmpty(m.getShortDescription())) {
-                    book.setShortDescription(LibraryUtils.getSubString(m.getShortDescription(), 500));
-                } else {
-                    book.setShortDescription(m.getTitle());
-                }
-
-                if (StringUtils.isNotEmpty(m.getLongDescription())) {
-                    book.setLongDescription(LibraryUtils.getSubString(m.getLongDescription(), 500));
-                } else {
-                    book.setLongDescription(m.getTitle());
-                }
-
-                book.setAuthors(LibraryUtils.listOfStringToString(m.getAuthors()));
-
-
-                book.setPrice(LibraryUtils.getRandomNumber(500, 5000));
-                book.setCreatedDate(new Date());
-
-                book.setAvailBooks(LibraryUtils.getRandomNumber(0, 200));
-
-                return book;
-            }).collect(toList());
+            List<Book> listBook = readBookDto
+                    .stream()
+                    .map(this::convertDtoToModel)
+                    .collect(toList());
 
             bookRepository.saveAll(listBook);
             return listBook;
@@ -212,9 +175,54 @@ public class BookServiceImpl implements BookService {
         return null;
     }
 
+    private Book convertDtoToModel(BooksDTO m) {
+        int isbn = 0;
+        if (StringUtils.isNotEmpty(m.getIsbn())) {
+            if (m.getIsbn().length() > 8) {
+                String isbnTmp = m.getIsbn().substring(0, 8);
+                isbn = Integer.parseInt(isbnTmp.replaceAll("[^0-9]", ""));
+            }
+        } else {
+            isbn = LibraryUtils.getRandomNumber(1417290084, 1617290084);
+        }
+
+        String publishedDate;
+        if (m.getPublishedDate() != null && StringUtils.isNotEmpty(m.getPublishedDate().getDate().strip())) {
+            publishedDate = m.getPublishedDate().getDate();//2009-04-01T00:00:00.000-0700
+        } else {
+            publishedDate = new Date().toString();
+        }
+        String shortDescription;
+        if (StringUtils.isNotEmpty(m.getShortDescription())) {
+            shortDescription = LibraryUtils.getSubString(m.getShortDescription(), 500);
+        } else {
+            shortDescription = m.getTitle();
+        }
+        String longDescription;
+        if (StringUtils.isNotEmpty(m.getLongDescription())) {
+            longDescription = LibraryUtils.getSubString(m.getLongDescription(), 500);
+        } else {
+            longDescription = m.getTitle();
+        }
+        return Book
+                .builder()
+                .subject(LibraryUtils.getSubString(m.getTitle(), 20))
+                .bookName(m.getTitle())
+                .bookQty(LibraryUtils.getRandomNumber(100, 1000))
+                .isbn(isbn)
+                .publishedDate(publishedDate)
+                .shortDescription(shortDescription)
+                .longDescription(longDescription)
+                .authors(LibraryUtils.listOfStringToString(m.getAuthors()))
+                .price(LibraryUtils.getRandomNumber(500, 5000))
+                .createdDate(new Date())
+                .availBooks(LibraryUtils.getRandomNumber(0, 200))
+                .build();
+    }
+
     @Override
     public List<Book> findBookSearchCriteria(int isbn, String subject, String bookName) {
-        logger.info("ISBN::"+isbn+"====Subject::"+subject+"====BookName::"+bookName);
+        logger.info("ISBN::" + isbn + "====Subject::" + subject + "====BookName::" + bookName);
         return bookRepository.findAll((Specification<Book>) (root, query, criteriaBuilder) -> {
 
             List<Predicate> predicates = new ArrayList<>();
@@ -224,12 +232,12 @@ public class BookServiceImpl implements BookService {
             }
             if (subject != null && StringUtils.isNotEmpty(subject.trim())) {
                 predicates.add(criteriaBuilder.and(criteriaBuilder.like(
-                        criteriaBuilder.upper(root.get("subject")), "%"+subject.trim().toUpperCase()+"%"
+                        criteriaBuilder.upper(root.get("subject")), "%" + subject.trim().toUpperCase() + "%"
                 )));
             }
-            if (bookName != null && StringUtils.isNotEmpty(bookName)) {
+            if (StringUtils.isNotEmpty(bookName)) {
                 predicates.add(criteriaBuilder.and(criteriaBuilder.like(
-                        criteriaBuilder.upper(root.get("bookName")), "%"+bookName.trim().toUpperCase()+"%")));
+                        criteriaBuilder.upper(root.get("bookName")), "%" + bookName.trim().toUpperCase() + "%")));
             }
             return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         });
@@ -251,7 +259,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public long countBooks(){
+    public long countBooks() {
         return bookRepository.count();
     }
 /*

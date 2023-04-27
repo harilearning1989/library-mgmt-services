@@ -90,10 +90,8 @@ public class BookIssueServiceImpl implements BookIssueService{
                     LibraryConstants.BOOK_ALREADY_ISSUED,student.getStudentName(),count),HttpStatus.CONFLICT);
         IssueBook issueBook = convertDtoToModel(issueBookDto);
         issueBook = bookIssueRepository.save(issueBook);
-        if(issueBook != null){
-            int availableBooks = book.getAvailBooks();
-            bookRepository.updateAvailableBooks(book.getId(),availableBooks-1);
-        }
+        int availableBooks = book.getAvailBooks();
+        bookRepository.updateAvailableBooks(book.getId(),availableBooks-1);
         return issueBook;
     }
 

@@ -4,6 +4,7 @@ import com.lib.mgmt.dtos.StudentDTO;
 import com.lib.mgmt.models.library.Student;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface StudentService {
@@ -30,4 +31,6 @@ public interface StudentService {
     String helloWorld();
 
     boolean findByEmail(String email);
+
+    Student updateStudentPatch(int studentId, Map<String,Object> fields);
 }

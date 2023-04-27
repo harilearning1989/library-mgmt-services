@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -95,6 +96,15 @@ public class StudentRestController {
     public ResponseEntity<Student> updateStudent(
             @PathVariable("studentId") int studentId, @RequestBody Student student) {
         Student _student = studentService.updateStudent(studentId,student);
+        if(_student == null)
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(_student, HttpStatus.CREATED);
+    }
+
+    @PatchMapping("/updateStudent/{studentId}")
+    public ResponseEntity<Student> updateStudentPatch(
+            @PathVariable("studentId") int studentId,@RequestBody Map<String,Object> fields) {
+        Student _student = studentService.updateStudentPatch(studentId,fields);
         if(_student == null)
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         return new ResponseEntity<>(_student, HttpStatus.CREATED);
