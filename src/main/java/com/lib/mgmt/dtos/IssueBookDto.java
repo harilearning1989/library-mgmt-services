@@ -11,6 +11,7 @@ public class IssueBookDto {
     private String authors;
     private int price;
     private String issuedDate;
+    private String returnDate;
 
     public String getIssuedDate() {
         return issuedDate;
@@ -82,5 +83,13 @@ public class IssueBookDto {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public String getReturnDate() {
+        return returnDate;
+    }
+
+    public void setReturnDate(String returnDate) {
+        this.returnDate = returnDate;
     }
 }

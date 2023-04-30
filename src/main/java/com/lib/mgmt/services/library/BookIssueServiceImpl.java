@@ -100,7 +100,6 @@ public class BookIssueServiceImpl implements BookIssueService{
         return bookIssueRepository.findIssuedBooksForStudent(studentId);
     }
 
-
     private IssueBook convertDtoToModel(IssueBookDto dto) {
         IssueBook issueBook = new IssueBook();
         issueBook.setStudentId(dto.getStudentId());

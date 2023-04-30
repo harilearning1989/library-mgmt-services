@@ -50,6 +50,7 @@ CREATE TABLE LIBRARY_MGMT.ISSUED_BOOKS (
     BOOK_NAME varchar(80) NOT NULL,
     AUTHORS varchar(500) NOT NULL,
     PRICE int DEFAULT NULL,
+    RETURN_DATE DATETIME,
     PRIMARY KEY (ID)
 );
 --===========================================

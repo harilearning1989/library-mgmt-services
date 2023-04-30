@@ -28,6 +28,8 @@ public class IssueBook {
     private String authors;
     @Column(name = "PRICE")
     private int price;
+    @Column(name = "RETURN_DATE")
+    private Date returnDate;
 
     public int getId() {
         return id;
@@ -99,5 +101,13 @@ public class IssueBook {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public Date getReturnDate() {
+        return returnDate;
+    }
+
+    public void setReturnDate(Date returnDate) {
+        this.returnDate = returnDate;
     }
 }

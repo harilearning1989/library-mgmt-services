@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface BookIssueRepository extends JpaRepository<IssueBook, Integer> {
@@ -21,6 +22,8 @@ public interface BookIssueRepository extends JpaRepository<IssueBook, Integer> {
 
     @Query(value = LibraryConstants.ISSUED_BOOKS_BASED_ID + LibraryConstants.ISSUED_BOOKS_BASED_STUDENT_ID)
     List<IssuedBookStudentDto> findIssuedBooksForStudent(int studentId);
+
+    Optional<IssueBook> findByIdAndIsbnAndStudentId(int id, int isbn, int studentId);
 
     //long countByIsbnAndStudentId(String isbn, int studentId);
 }
