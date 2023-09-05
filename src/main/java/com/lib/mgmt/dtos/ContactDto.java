@@ -3,10 +3,7 @@ package com.lib.mgmt.dtos;
 import lombok.*;
 
 @Builder
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
+@Data
 public class ContactDto {
 
     private int id;
